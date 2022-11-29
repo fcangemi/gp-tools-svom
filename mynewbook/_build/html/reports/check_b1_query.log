@@ -21,17 +21,36 @@ check_inB1_list("sources.lst")
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-[0;32m/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_16590/2803840755.py[0m in [0;36m<module>[0;34m[0m
+[0;31mStdinNotImplementedError[0m                  Traceback (most recent call last)
+[0;32m/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_17791/2803840755.py[0m in [0;36m<module>[0;34m[0m
 [0;32m----> 1[0;31m [0mcheck_inB1_list[0m[0;34m([0m[0;34m"sources.lst"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m
-[0;32m/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_16590/2243966047.py[0m in [0;36mcheck_inB1_list[0;34m(list_of_sources_file)[0m
-[1;32m     38[0m [0;34m[0m[0m
-[1;32m     39[0m [0;32mdef[0m [0mcheck_inB1_list[0m[0;34m([0m[0mlist_of_sources_file[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 40[0;31m     [0mlist_of_source[0m [0;34m=[0m [0mopen[0m[0;34m([0m[0mlist_of_sources_file[0m[0;34m,[0m [0;34m"r"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     41[0m [0;34m[0m[0m
+[0;32m/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_17791/2369516278.py[0m in [0;36mcheck_inB1_list[0;34m(list_of_sources_file)[0m
+[1;32m     41[0m [0;34m[0m[0m
 [1;32m     42[0m     [0;32mfor[0m [0msource[0m [0;32min[0m [0mlist_of_source[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 43[0;31m         [0mcheck_inB1_name[0m[0;34m([0m[0msource[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_17791/2369516278.py[0m in [0;36mcheck_inB1_name[0;34m(source)[0m
+[1;32m     17[0m [0;34m[0m[0m
+[1;32m     18[0m [0;32mdef[0m [0mcheck_inB1_name[0m[0;34m([0m[0msource[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 19[0;31m     [0msource[0m[0;34m,[0m [0mra_source[0m[0;34m,[0m [0mdec_source[0m [0;34m=[0m [0mwhich_source[0m[0;34m([0m[0msource[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     20[0m     [0mb1_ras[0m[0;34m,[0m [0mb1_decs[0m [0;34m=[0m [0mread_B1[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     21[0m     [0mc_source[0m [0;34m=[0m [0mSkyCoord[0m[0;34m([0m[0mra_source[0m[0;34m,[0m [0mdec_source[0m[0;34m,[0m [0mframe[0m [0;34m=[0m [0;34m"icrs"[0m[0;34m,[0m [0munit[0m [0;34m=[0m [0;34m([0m[0mu[0m[0;34m.[0m[0mhourangle[0m[0;34m,[0m [0mu[0m[0;34m.[0m[0mdeg[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'sources.lst'
-FileNotFoundError: [Errno 2] No such file or directory: 'sources.lst'
+[0;32m/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_17791/2369516278.py[0m in [0;36mwhich_source[0;34m(source)[0m
+[1;32m      3[0m     [0;32mif[0m[0;34m([0m[0mresult_table[0m [0;34m==[0m [0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m         [0mprint[0m[0;34m([0m[0;34m"Unable to find"[0m[0;34m,[0m [0msource[0m[0;34m.[0m[0mrstrip[0m[0;34m([0m[0;34m"\n"[0m[0;34m)[0m[0;34m,[0m [0;34m", please enter the source coordinates:"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 5[0;31m         [0mra[0m [0;34m=[0m [0mfloat[0m[0;34m([0m[0minput[0m[0;34m([0m[0;34m"ra (degrees):"[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      6[0m         [0mdec[0m [0;34m=[0m [0mfloat[0m[0;34m([0m[0minput[0m[0;34m([0m[0;34m"dec (degrees):"[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/ipykernel/kernelbase.py[0m in [0;36mraw_input[0;34m(self, prompt)[0m
+[1;32m   1172[0m         """
+[1;32m   1173[0m         [0;32mif[0m [0;32mnot[0m [0mself[0m[0;34m.[0m[0m_allow_stdin[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1174[0;31m             raise StdinNotImplementedError(
+[0m[1;32m   1175[0m                 [0;34m"raw_input was called, but this frontend does not support input requests."[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1176[0m             )
+
+[0;31mStdinNotImplementedError[0m: raw_input was called, but this frontend does not support input requests.
+StdinNotImplementedError: raw_input was called, but this frontend does not support input requests.
 

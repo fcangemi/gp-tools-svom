@@ -52,7 +52,7 @@ def check_inB1_name(source):
             continue
 
     if count == 0:
-        print(source.rstrip('\n'), "is not in B1 law, minimal separation =", min(all_sep)*u.degree)
+        print(source.rstrip('\n'), "is not in B1 law, minimal separation from closest B1 pointing =", min(all_sep)*u.degree)
     else:
         print(source.rstrip('\n'), "is in B1 law")
 
@@ -63,7 +63,11 @@ def check_inB1_list(list_of_sources_file):
         check_inB1_name(source)
 
 
-# #### Using the source name
+# #### The purpose of this notebook is to check whether a source is in B1 law or not.
+# 
+# The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.
+
+# ##### Using the source name
 
 # In[3]:
 
@@ -71,7 +75,7 @@ def check_inB1_list(list_of_sources_file):
 check_inB1_name("Cygnus X-1")
 
 
-# #### Using a list of sources
+# ##### Using a list of sources
 
 # In[4]:
 
@@ -82,8 +86,7 @@ check_inB1_list("sources.lst")
 # In[ ]:
 
 
-185.341428
-30.176988
+
 
 
 # In[ ]:
