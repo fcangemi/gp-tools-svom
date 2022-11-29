@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Check B1 law
+
 # In[1]:
 
 
