@@ -68,10 +68,16 @@ def check_inB1_list(list_of_sources_file):
         check_inB1_name(source)
 
 
-# #### Using the source name
+# ## Using the source name
 
 # In[3]:
 
 
 check_inB1_name("Cygnus X-1")
+
+
+# In[ ]:
+
+
+
 
