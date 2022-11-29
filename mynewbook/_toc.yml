@@ -7,3 +7,4 @@ chapters:
 - file: markdown
 - file: notebooks
 - file: markdown-notebooks
+- file: check_b1_query

@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-# In[16]:
+# In[2]:
 
 
 def which_source(source):
@@ -65,7 +65,7 @@ def check_inB1_list(list_of_sources_file):
 
 # #### Using the source name
 
-# In[21]:
+# In[3]:
 
 
 check_inB1_name("Cygnus X-1")
@@ -73,7 +73,7 @@ check_inB1_name("Cygnus X-1")
 
 # #### Using a list of sources
 
-# In[19]:
+# In[4]:
 
 
 check_inB1_list("sources.lst")
