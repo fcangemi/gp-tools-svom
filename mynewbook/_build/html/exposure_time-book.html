@@ -55,7 +55,6 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
     <link rel="prev" title="Check B1 law" href="check_b1_query-book.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -125,11 +124,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Estimate exposure time
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="markdown-notebooks.html">
-   Notebooks with MyST Markdown
   </a>
  </li>
 </ul>
@@ -559,12 +553,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 16:21:51--  https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits
-Resolving github.com (github.com)... 140.82.121.3
-Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 16:38:14--  https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits
+Resolving github.com (github.com)... 140.82.121.4
+Connecting to github.com (github.com)|140.82.121.4|:443... connected.
 HTTP request sent, awaiting response... 302 Found
 Location: https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/ECL-RSP-ARF_20211023T01.fits [following]
---2022-11-30 16:21:52--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/ECL-RSP-ARF_20211023T01.fits
+--2022-11-30 16:38:15--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/ECL-RSP-ARF_20211023T01.fits
 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.109.133, ...
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -573,23 +567,23 @@ Saving to: &#39;ECL-RSP-ARF_20211023T01.fits&#39;
 
 ECL-RSP-ARF_2021102 100%[===================&gt;]  25.31K  --.-KB/s    in 0.001s  
 
-2022-11-30 16:21:52 (31.1 MB/s) - &#39;ECL-RSP-ARF_20211023T01.fits&#39; saved [25920/25920]
+2022-11-30 16:38:15 (26.8 MB/s) - &#39;ECL-RSP-ARF_20211023T01.fits&#39; saved [25920/25920]
 
---2022-11-30 16:21:52--  https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf
-Resolving github.com (github.com)... 140.82.121.3
-Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+--2022-11-30 16:38:15--  https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf
+Resolving github.com (github.com)... 140.82.121.4
+Connecting to github.com (github.com)|140.82.121.4|:443... connected.
 HTTP request sent, awaiting response... 302 Found
 Location: https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/MXT_FM_PANTER_FULL-ALL-1.0.arf [following]
---2022-11-30 16:21:52--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/MXT_FM_PANTER_FULL-ALL-1.0.arf
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.109.133, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+--2022-11-30 16:38:15--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/MXT_FM_PANTER_FULL-ALL-1.0.arf
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 25920 (25K) [application/octet-stream]
 Saving to: &#39;MXT_FM_PANTER_FULL-ALL-1.0.arf&#39;
 
 MXT_FM_PANTER_FULL- 100%[===================&gt;]  25.31K  --.-KB/s    in 0.001s  
 
-2022-11-30 16:21:52 (22.9 MB/s) - &#39;MXT_FM_PANTER_FULL-ALL-1.0.arf&#39; saved [25920/25920]
+2022-11-30 16:38:16 (20.8 MB/s) - &#39;MXT_FM_PANTER_FULL-ALL-1.0.arf&#39; saved [25920/25920]
 </pre></div>
 </div>
 </div>
@@ -826,6 +820,9 @@ N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}}
 <li><p>“<strong>instrument</strong>”: you can choose between “MXT” or “ECLAIRs”;</p></li>
 <li><p>“<strong>Eband</strong>”: energy band for which you want to calculate the exposure time, [<strong>Emin</strong>, <strong>Emax</strong>], <strong>Emin</strong> and <strong>Emax</strong> in <strong>keV</strong>.</p></li>
 </ul>
+<p>\begin{equation}
+N(E) = \phi_0 E^{-\Gamma}
+\end{equation}</p>
 </section>
 <section id="few-examples">
 <h2>Few examples<a class="headerlink" href="#few-examples" title="Permalink to this heading">#</a></h2>
@@ -855,7 +852,7 @@ Source = 523.9236 c/s in the energy band [4, 150] keV.
 ECLAIRs : need an exposure time of 1.78 seconds for a SNR = 10 over the energy band [4, 150] keV.
 </pre></div>
 </div>
-<img alt="_images/exposure_time-book_6_1.png" src="_images/exposure_time-book_6_1.png" />
+<img alt="_images/exposure_time-book_7_1.png" src="_images/exposure_time-book_7_1.png" />
 </div>
 </div>
 <p>Alternatively, you can give the unabsorbed flux to calculate the flux normalization:</p>
@@ -896,7 +893,7 @@ Source = 36.3873 c/s in the energy band [4, 150] keV.
 ECLAIRs : need an exposure time of 2500.24 seconds for a SNR = 30 over the energy band [4, 150] keV.
 </pre></div>
 </div>
-<img alt="_images/exposure_time-book_10_1.png" src="_images/exposure_time-book_10_1.png" />
+<img alt="_images/exposure_time-book_11_1.png" src="_images/exposure_time-book_11_1.png" />
 </div>
 </div>
 </section>
@@ -925,7 +922,7 @@ Source = 9.5452 c/s in the energy band [4, 100] keV.
 ECLAIRs : need an exposure time of 3943.98 seconds for a SNR = 10 over the energy band [4, 100] keV.
 </pre></div>
 </div>
-<img alt="_images/exposure_time-book_12_1.png" src="_images/exposure_time-book_12_1.png" />
+<img alt="_images/exposure_time-book_13_1.png" src="_images/exposure_time-book_13_1.png" />
 </div>
 </div>
 </section>
@@ -965,13 +962,6 @@ ECLAIRs : need an exposure time of 3943.98 seconds for a SNR = 10 over the energ
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Check B1 law</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="markdown-notebooks.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Notebooks with MyST Markdown</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

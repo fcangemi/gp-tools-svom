@@ -3,14 +3,14 @@
 
 # # Estimate exposure time
 
-# In[13]:
+# In[18]:
 
 
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 
 
-# In[14]:
+# In[19]:
 
 
 from astropy.io import fits
@@ -20,7 +20,7 @@ from scipy import constants as c
 from scipy.optimize import curve_fit
 
 
-# In[15]:
+# In[20]:
 
 
 def read_arf(arf_filename):
@@ -228,10 +228,14 @@ def calculate_exposure(SNR, instrument, Eband):
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
+# \begin{equation}
+# N(E) = \phi_0 E^{-\Gamma}
+# \end{equation}
+
 # ### Few examples
 # #### Powerlaw (example for the Crab)
 
-# In[16]:
+# In[21]:
 
 
 # Model and parameters

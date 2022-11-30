@@ -6,4 +6,3 @@ root: intro
 chapters:
 - file: check_b1_query-book
 - file: exposure_time-book
-- file: markdown-notebooks
