@@ -10,6 +10,7 @@
 
 
 get_ipython().system('wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt')
+get_ipython().system('pip install astroquery')
 
 
 # In[2]:
@@ -80,6 +81,12 @@ def check_inB1_list(list_of_sources_file):
 
 
 check_inB1_name("Cygnus X-1")
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
