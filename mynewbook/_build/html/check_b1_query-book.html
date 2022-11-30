@@ -413,22 +413,22 @@ title="Print to PDF"
 The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.</p>
 <div class="cell tag_hide-cell tag_thebe-init docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
 <span class="o">!</span>pip install astroquery
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 14:05:31--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.109.133, 185.199.108.133, ...
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 15:09:59--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.111.133, 185.199.108.133, ...
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 13616 (13K) [text/plain]
-Saving to: &#39;B1_law.txt.5&#39;
+Saving to: &#39;B1_law.txt.1&#39;
 
-B1_law.txt.5        100%[===================&gt;]  13.30K  --.-KB/s    in 0s      
+B1_law.txt.1        100%[===================&gt;]  13.30K  --.-KB/s    in 0.001s  
 
-2022-11-30 14:05:31 (49.2 MB/s) - &#39;B1_law.txt.5&#39; saved [13616/13616]
+2022-11-30 15:09:59 (20.2 MB/s) - &#39;B1_law.txt.1&#39; saved [13616/13616]
 
 Requirement already satisfied: astroquery in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (0.4.6)
 Requirement already satisfied: numpy&gt;=1.16 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.21.5)
@@ -438,16 +438,16 @@ Requirement already satisfied: beautifulsoup4&gt;=4.3.2 in /Users/fcangemi/opt/a
 Requirement already satisfied: html5lib&gt;=0.999 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.1)
 Requirement already satisfied: keyring&gt;=4.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (23.4.0)
 Requirement already satisfied: pyvo&gt;=1.1 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.4)
+Requirement already satisfied: packaging&gt;=19.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (21.3)
 Requirement already satisfied: PyYAML&gt;=3.13 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (6.0)
 Requirement already satisfied: pyerfa&gt;=2.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (2.0.0)
-Requirement already satisfied: packaging&gt;=19.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (21.3)
 Requirement already satisfied: soupsieve&gt;1.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from beautifulsoup4&gt;=4.3.2-&gt;astroquery) (2.3.1)
-Requirement already satisfied: webencodings in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from html5lib&gt;=0.999-&gt;astroquery) (0.5.1)
 Requirement already satisfied: six&gt;=1.9 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from html5lib&gt;=0.999-&gt;astroquery) (1.16.0)
+Requirement already satisfied: webencodings in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from html5lib&gt;=0.999-&gt;astroquery) (0.5.1)
 Requirement already satisfied: importlib-metadata&gt;=3.6 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from keyring&gt;=4.0-&gt;astroquery) (4.11.3)
-Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (2.0.4)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (3.3)
 Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (1.26.11)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (3.3)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (2.0.4)
 Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (2022.9.24)
 Requirement already satisfied: zipp&gt;=0.5 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from importlib-metadata&gt;=3.6-&gt;keyring&gt;=4.0-&gt;astroquery) (3.8.0)
 Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from packaging&gt;=19.0-&gt;astropy&gt;=4.0-&gt;astroquery) (3.0.9)
@@ -521,7 +521,8 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
 </div>
 <section id="using-the-source-name">
 <h2>Using the source name<a class="headerlink" href="#using-the-source-name" title="Permalink to this heading">#</a></h2>
-<p>You can directly check by writing the source name. Click on the rocket at the top of this page, and then click on the “Live mode” button to edit the cell below. Here an example for Cygnus X-1; try with your source!</p>
+<p>You can directly check by writing the source name. Click on the rocket at the top of this page, and then click on the “Live Code” button to edit the cell below.
+Here an example for Cygnus X-1; write your source name and then click on run!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">check_inB1_name</span><span class="p">(</span><span class="s2">&quot;Cygnus X-1&quot;</span><span class="p">)</span>
