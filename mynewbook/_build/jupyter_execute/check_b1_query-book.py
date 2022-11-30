@@ -6,7 +6,7 @@
 # With this notebook, you can check whether a source is in B1 law or not.
 # The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.
 
-# In[7]:
+# In[1]:
 
 
 get_ipython().system('wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt')
@@ -27,7 +27,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-# In[3]:
+# In[7]:
 
 
 def which_source(source):
@@ -68,19 +68,20 @@ def check_inB1_name(source):
     else:
         print(source.rstrip('\n'), "is in B1 law")
 
-def check_inB1_list(list_of_sources_file):
-    list_of_source = open(list_of_sources_file, "r")
+def check_inB1_list(list_of_sources):
+    #list_of_sources = open(list_of_sources_file, "r")
     
-    for source in list_of_source:
+    for source in list_of_sources:
         check_inB1_name(source)
 
 
 # ## Using the source name
 
-# You can directly check by writing the source name. Click on the rocket at the top of this page, and then click on the "Live Code" button to edit the cell below. 
-# Here an example for Cygnus X-1; write your source name and then click on run!
+# You can directly write the source name. Click on the rocket at the top of this page, and then click on the "Live Code" button to edit the cell below. 
+# 
+# Here an example for Cygnus X-1; write your source name and then click on "run".
 
-# In[4]:
+# In[8]:
 
 
 check_inB1_name("Cygnus X-1")
@@ -88,7 +89,29 @@ check_inB1_name("Cygnus X-1")
 
 # ## Using a list of sources
 
-# 
+# Alternatively, you can provide a list of sources:
+
+# In[9]:
+
+
+list_of_sources = ["Mrk 501",
+                   "Mrk 421",
+                   "1ES 1959+650",
+                   "1ES 2344+514",
+                   "M87",
+                   "PG 1553+113",
+                   "NGC 1246",
+                   "IC 310",
+                   "1ES 1011+496",
+                   "1ES 1215+303"
+                    ]
+
+
+# In[10]:
+
+
+check_inB1_list(list_of_sources)
+
 
 # In[ ]:
 
