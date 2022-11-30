@@ -3,24 +3,25 @@
 
 # # Estimate exposure time
 
-# In[18]:
+# In[24]:
 
 
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
+get_ipython().system('pip install astropy')
 
 
-# In[19]:
+# In[40]:
 
 
 from astropy.io import fits
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy import constants as c
-from scipy.optimize import curve_fit
+from bokeh.plotting import figure, show, output_notebook
+output_notebook()
 
 
-# In[20]:
+# In[75]:
 
 
 def read_arf(arf_filename):
@@ -100,6 +101,10 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
         elif(model == "cutoffpl"):
             F = norm * E_r**(-Gamma) * np.exp(-E_r / E_cut) * np.exp(- n_H * a / E_r**3)
             countrate = sum(arf_r * norm * E_r**(-Gamma) * np.exp(-E_r / E_cut) * np.exp(- n_H * a / E_r**3) * dE_r)
+        
+        elif(model == "bbody"):
+            F = norm * 8.0525 * E_r**2 / (kT**4 * (np.exp(E_r/kT) - 1))# * np.exp(- n_H * a / E_r**3)
+            countrate = sum(arf_r * norm * 8.0525 * E_r**3 / (kT**4 * (np.exp(E_r/kT) - 1)) * np.exp(- n_H * a / E_r**3) * dE_r)
             
         else: # Brokenpowerlaw
             F = np.ones(len(E_r))
@@ -112,12 +117,15 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
                 else:
                     F[i] = norm * E_r[i]**(-beta) * E_break**(beta - alpha) * np.exp(- n_H * a / E_r[i]**3)
                     countrate += arf_r[i] * norm * E_r[i]**(-beta) * E_break**(beta - alpha) * dE_r[i] * np.exp(- n_H * a / E_r[i]**3)
-                                    
-        plt.plot(E_r, F, color = "red", linewidth = 2, label = "Source")
-        plt.xscale("log")
-        plt.yscale("log")
-        plt.xlabel("Energy [keV]")
-        plt.ylabel("ph/cm2/s/keV")
+        #p = figure()
+        p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
+                   x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
+        p.line(E_r, F, color = "red")#, linewidth = 2, label = "Source")
+        show(p)
+        #plt.xscale("log")
+        #plt.yscale("log")
+        #plt.xlabel("Energy [keV]")
+        #plt.ylabel("ph/cm2/s/keV")
         return countrate
 
 def calculate_background(instrument, Eband):
@@ -150,9 +158,8 @@ def calculate_background(instrument, Eband):
             Gamma = 1.47
             F = norm * E_r**(-Gamma)
             countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)
-
-        plt.plot(E_r, F, color = "blue", label = "CXB")
-        plt.legend()
+        #plt.plot(E_r, F, color = "blue", label = "CXB")
+        #plt.legend()
     return countrate
 
 def calculate_exposure(SNR, instrument, Eband):
@@ -186,8 +193,8 @@ def calculate_exposure(SNR, instrument, Eband):
 
 
 # This notebook uses ancillary response files of MXT and ECLAIRs in order to calculate the exposure time needed to achieve a signal to noise ratio given the spectrum of a source.
-# #### 1) Choose the model you want and define parameters
-# **Three types** of models can be used: 
+# #### 1. Choose the model and define parameters
+# **Four types** of models can be used: 
 # 
 # ##### Simple powerlaw, "**powerlaw**":
 # $$
@@ -220,9 +227,12 @@ def calculate_exposure(SNR, instrument, Eband):
 # - $\Gamma$: photon index, named "**Gamma**" in this notebook;
 # - $E_\mathrm{cut}$: cutoff energy in **keV**, "**E_cut**" in this notebook.
 # 
-# For the three models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.
+# ##### Black body, "**bbody**":
+# Description of the black body model in construction.
 # 
-# #### 2) Calculate the exposure
+# For all the models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.
+# 
+# #### 2. Calculate the exposure
 # Once you have defined your model and the corresponding parameters, you can call "**calculate_exposure(SNR, instrument, Eband)**" to calculate the exposure time needed. This function has three arguments:
 # - "**SNR**": Signal to Noise Ratio;
 # - "**instrument**": you can choose between "MXT" or "ECLAIRs";
@@ -238,7 +248,7 @@ def calculate_exposure(SNR, instrument, Eband):
 
 # Model and parameters:
 
-# In[23]:
+# In[76]:
 
 
 
@@ -250,15 +260,15 @@ n_H   = 4.5        # Density column in 1e21 cm-2
 
 # Exposure time:
 
-# In[ ]:
+# In[77]:
 
 
-calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
+calculate_exposure(SNR = 10, instrument = "MXT", Eband = [0.2, 10])
 
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[ ]:
+# In[78]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -268,7 +278,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[158]:
+# In[79]:
 
 
 model   = "bknpowerlaw"
@@ -282,7 +292,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[160]:
+# In[80]:
 
 
 model = "cutoffpl"
@@ -291,6 +301,28 @@ E_cut = 40          # Energy cutoff in keV
 Gamma = 1.7         # Photon index
 n_H   = 0           # Density column in 1e21 cm-2
 calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
+
+
+# In[ ]:
+
+
+#### Black Body
+
+
+# In[ ]:
+
+
+model = "bbody"
+norm = 1.
+n_H = 0.
+kT = 0.5
+calculate_exposure(SNR = 7, instrument = "MXT", Eband = [0.2, 10])
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
