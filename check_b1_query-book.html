@@ -363,6 +363,11 @@ title="Print to PDF"
    Using the source name
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-a-list-of-sources">
+   Using a list of sources
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -387,6 +392,11 @@ title="Print to PDF"
    Using the source name
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-a-list-of-sources">
+   Using a list of sources
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -401,7 +411,7 @@ title="Print to PDF"
 <h1>Check B1 law<a class="headerlink" href="#check-b1-law" title="Permalink to this heading">#</a></h1>
 <p>With this notebook, you can check whether a source is in B1 law or not.
 The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.</p>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt</span>
 <span class="o">!</span>pip install astroquery
@@ -445,7 +455,7 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
 </div>
 </div>
 </div>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.simbad</span> <span class="kn">import</span> <span class="n">Simbad</span>
 <span class="kn">from</span> <span class="nn">astroquery.vizier</span> <span class="kn">import</span> <span class="n">Vizier</span>
@@ -460,7 +470,7 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
 </div>
 </div>
 </div>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
     <span class="n">result_table</span> <span class="o">=</span> <span class="n">Simbad</span><span class="o">.</span><span class="n">query_object</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
@@ -511,6 +521,7 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
 </div>
 <section id="using-the-source-name">
 <h2>Using the source name<a class="headerlink" href="#using-the-source-name" title="Permalink to this heading">#</a></h2>
+<p>You can directly check by writing the source name. Below an example with Cygnus X-1. Click on the {glue:logosvom.jpg} button and then</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">check_inB1_name</span><span class="p">(</span><span class="s2">&quot;Cygnus X-1&quot;</span><span class="p">)</span>
@@ -523,6 +534,9 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
 </div>
 </div>
 </div>
+</section>
+<section id="using-a-list-of-sources">
+<h2>Using a list of sources<a class="headerlink" href="#using-a-list-of-sources" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
