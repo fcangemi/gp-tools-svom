@@ -381,27 +381,6 @@ title="Print to PDF"
      </strong>
      ”:
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2">
-       For the three models, absorption is taken into account thanks to the hydrogen density column parameter
-       <strong>
-        n_H
-       </strong>
-       , in
-       <strong>
-        <span class="math notranslate nohighlight">
-         \(10^{21}\)
-        </span>
-        cm
-        <span class="math notranslate nohighlight">
-         \(^{-2}\)
-        </span>
-       </strong>
-       .
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
@@ -482,27 +461,6 @@ title="Print to PDF"
      </strong>
      ”:
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2">
-       For the three models, absorption is taken into account thanks to the hydrogen density column parameter
-       <strong>
-        n_H
-       </strong>
-       , in
-       <strong>
-        <span class="math notranslate nohighlight">
-         \(10^{21}\)
-        </span>
-        cm
-        <span class="math notranslate nohighlight">
-         \(^{-2}\)
-        </span>
-       </strong>
-       .
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
@@ -771,9 +729,10 @@ MXT_FM_PANTER_FULL- 100%[===================&gt;]  25.31K  --.-KB/s    in 0.001s
 <p><strong>Three types</strong> of models can be used:</p>
 <section id="simple-powerlaw-powerlaw">
 <h3>Simple powerlaw, “<strong>powerlaw</strong>”:<a class="headerlink" href="#simple-powerlaw-powerlaw" title="Permalink to this heading">#</a></h3>
-<p>\begin{equation}
+<div class="math notranslate nohighlight">
+\[
 N(E) = \phi_0 E^{-\Gamma}
-\end{equation}</p>
+\]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\phi_0\)</span>: flux normalization in <strong>ph/cm2/s/keV</strong>, named “<strong>norm</strong>” in this notebook;</p></li>
 <li><p><span class="math notranslate nohighlight">\(\Gamma\)</span>: photon index, named “<strong>Gamma</strong>” in this notebook.</p></li>
@@ -782,14 +741,15 @@ N(E) = \phi_0 E^{-\Gamma}
 </section>
 <section id="broken-powerlaw-bknpowerlaw">
 <h3>Broken powerlaw, “<strong>bknpowerlaw</strong>”:<a class="headerlink" href="#broken-powerlaw-bknpowerlaw" title="Permalink to this heading">#</a></h3>
-<p>\begin{equation}
-N(E) = \left{
-\begin{array}{ll}
-\phi_0 E^{-\alpha} &amp; \mbox{if } E \leq E_\mathrm{break} \
-\phi_0 E_\mathrm{break}^{\beta-\alpha} E^{-\beta} &amp; \mbox{if } E &gt; E_\mathrm{break}
-\end{array}
+<div class="math notranslate nohighlight">
+\[\begin{split}
+N(E) = \left\{
+    \begin{array}{ll}
+        \phi_0 E^{-\alpha} &amp; \mbox{if } E \leq E_\mathrm{break} \\
+        \phi_0 E_\mathrm{break}^{\beta-\alpha} E^{-\beta} &amp; \mbox{if } E &gt; E_\mathrm{break}
+    \end{array}
 \right.
-\end{equation}</p>
+\end{split}\]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\phi_0\)</span>: flux normalization in <strong>ph/cm2/s/keV</strong>, named “<strong>norm</strong>” in this notebook;</p></li>
 <li><p><span class="math notranslate nohighlight">\(E_\mathrm{break}\)</span>: break energy in <strong>keV</strong>, named “<strong>E_break</strong>” in this notebook;</p></li>
@@ -799,17 +759,16 @@ N(E) = \left{
 </section>
 <section id="cutoff-powerlaw-cutoffpl">
 <h3>Cutoff powerlaw, “<strong>cutoffpl</strong>”:<a class="headerlink" href="#cutoff-powerlaw-cutoffpl" title="Permalink to this heading">#</a></h3>
-<p>\begin{equation}
-N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}}
-\end{equation}</p>
+<div class="math notranslate nohighlight">
+\[
+N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}} 
+\]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\phi_0\)</span>: flux normalization in <strong>ph/cm2/s/keV</strong>, named “<strong>norm</strong>” in this notebook;</p></li>
 <li><p><span class="math notranslate nohighlight">\(\Gamma\)</span>: photon index, named “<strong>Gamma</strong>” in this notebook;</p></li>
 <li><p><span class="math notranslate nohighlight">\(E_\mathrm{cut}\)</span>: cutoff energy in <strong>keV</strong>, “<strong>E_cut</strong>” in this notebook.</p></li>
 </ul>
-<section id="for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2">
-<h4>For the three models, absorption is taken into account thanks to the hydrogen density column parameter <strong>n_H</strong>, in <strong><span class="math notranslate nohighlight">\(10^{21}\)</span>cm<span class="math notranslate nohighlight">\(^{-2}\)</span></strong>.<a class="headerlink" href="#for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2" title="Permalink to this heading">#</a></h4>
-</section>
+<p><code class="docutils literal notranslate"><span class="pre">For</span> <span class="pre">the</span> <span class="pre">three</span> <span class="pre">models,</span> <span class="pre">absorption</span> <span class="pre">is</span> <span class="pre">taken</span> <span class="pre">into</span> <span class="pre">account</span> <span class="pre">thanks</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">hydrogen</span> <span class="pre">density</span> <span class="pre">column</span> <span class="pre">parameter</span> <span class="pre">**n_H**,</span> <span class="pre">in</span> <span class="pre">**$10^{21}$cm$^{-2}$**.</span></code></p>
 </section>
 </section>
 <section id="calculate-the-exposure">
@@ -820,10 +779,6 @@ N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}}
 <li><p>“<strong>instrument</strong>”: you can choose between “MXT” or “ECLAIRs”;</p></li>
 <li><p>“<strong>Eband</strong>”: energy band for which you want to calculate the exposure time, [<strong>Emin</strong>, <strong>Emax</strong>], <strong>Emin</strong> and <strong>Emax</strong> in <strong>keV</strong>.</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[
-N(E) = \phi_0 E^{-\Gamma}
-\]</div>
 </section>
 <section id="few-examples">
 <h2>Few examples<a class="headerlink" href="#few-examples" title="Permalink to this heading">#</a></h2>
@@ -853,7 +808,7 @@ Source = 523.9236 c/s in the energy band [4, 150] keV.
 ECLAIRs : need an exposure time of 1.78 seconds for a SNR = 10 over the energy band [4, 150] keV.
 </pre></div>
 </div>
-<img alt="_images/exposure_time-book_7_1.png" src="_images/exposure_time-book_7_1.png" />
+<img alt="_images/exposure_time-book_8_1.png" src="_images/exposure_time-book_8_1.png" />
 </div>
 </div>
 <p>Alternatively, you can give the unabsorbed flux to calculate the flux normalization:</p>
@@ -894,7 +849,7 @@ Source = 36.3873 c/s in the energy band [4, 150] keV.
 ECLAIRs : need an exposure time of 2500.24 seconds for a SNR = 30 over the energy band [4, 150] keV.
 </pre></div>
 </div>
-<img alt="_images/exposure_time-book_11_1.png" src="_images/exposure_time-book_11_1.png" />
+<img alt="_images/exposure_time-book_12_1.png" src="_images/exposure_time-book_12_1.png" />
 </div>
 </div>
 </section>
@@ -923,7 +878,7 @@ Source = 9.5452 c/s in the energy band [4, 100] keV.
 ECLAIRs : need an exposure time of 3943.98 seconds for a SNR = 10 over the energy band [4, 100] keV.
 </pre></div>
 </div>
-<img alt="_images/exposure_time-book_13_1.png" src="_images/exposure_time-book_13_1.png" />
+<img alt="_images/exposure_time-book_14_1.png" src="_images/exposure_time-book_14_1.png" />
 </div>
 </div>
 </section>
