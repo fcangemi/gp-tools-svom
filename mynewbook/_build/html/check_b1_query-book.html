@@ -403,6 +403,29 @@ title="Print to PDF"
 The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 11:01:38--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 13616 (13K) [text/plain]
+Saving to: &#39;B1_law.txt.1&#39;
+
+
+B1_law.txt.1          0%[                    ]       0  --.-KB/s               
+B1_law.txt.1        100%[===================&gt;]  13.30K  --.-KB/s    in 0s      
+
+2022-11-30 11:01:38 (31.8 MB/s) - &#39;B1_law.txt.1&#39; saved [13616/13616]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.simbad</span> <span class="kn">import</span> <span class="n">Simbad</span>
 <span class="kn">from</span> <span class="nn">astroquery.vizier</span> <span class="kn">import</span> <span class="n">Vizier</span>
 <span class="kn">from</span> <span class="nn">astroquery.ipac.ned</span> <span class="kn">import</span> <span class="n">Ned</span>

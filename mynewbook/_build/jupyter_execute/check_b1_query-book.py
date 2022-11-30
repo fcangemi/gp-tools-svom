@@ -9,6 +9,12 @@
 # In[1]:
 
 
+get_ipython().system('wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt')
+
+
+# In[2]:
+
+
 from astroquery.simbad import Simbad
 from astroquery.vizier import Vizier
 from astroquery.ipac.ned import Ned
@@ -20,7 +26,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-# In[2]:
+# In[3]:
 
 
 def which_source(source):
@@ -70,7 +76,7 @@ def check_inB1_list(list_of_sources_file):
 
 # ## Using the source name
 
-# In[3]:
+# In[4]:
 
 
 check_inB1_name("Cygnus X-1")
