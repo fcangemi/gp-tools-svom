@@ -228,9 +228,9 @@ def calculate_exposure(SNR, instrument, Eband):
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
-# \begin{equation}
+# $$
 # N(E) = \phi_0 E^{-\Gamma}
-# \end{equation}
+# $$
 
 # ### Few examples
 # #### Powerlaw (example for the Crab)
