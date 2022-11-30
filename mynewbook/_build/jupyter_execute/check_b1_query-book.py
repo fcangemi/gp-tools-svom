@@ -77,7 +77,7 @@ def check_inB1_list(list_of_sources):
 
 # ## Using the source name
 
-# You can directly write the source name. `Click on the rocket` at the top of this page, and the n`click on the "Live Code"` button to edit the cell below. 
+# You can directly write the source name. `Click on the rocket` at the top of this page, and then `click on the "Live Code"` button to edit the cell below. 
 # 
 # Here an example for Cygnus X-1; `write your source name` and then `click on "run"`.
 

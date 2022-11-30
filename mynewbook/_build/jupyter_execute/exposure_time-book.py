@@ -186,7 +186,7 @@ def calculate_exposure(SNR, instrument, Eband):
 
 
 # This notebook uses ancillary response files of MXT and ECLAIRs in order to calculate the exposure time needed to achieve a signal to noise ratio given the spectrum of a source.
-# #### 1) Choose the type of model you want to use and define the parameters
+# #### 1) Choose the model you want and define parameters
 # **Three types** of models can be used: 
 # 
 # ##### Simple powerlaw, "**powerlaw**":
@@ -220,7 +220,8 @@ def calculate_exposure(SNR, instrument, Eband):
 # - $\Gamma$: photon index, named "**Gamma**" in this notebook;
 # - $E_\mathrm{cut}$: cutoff energy in **keV**, "**E_cut**" in this notebook.
 # 
-# `For the three models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.`
+# For the three models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.
+# 
 # #### 2) Calculate the exposure
 # Once you have defined your model and the corresponding parameters, you can call "**calculate_exposure(SNR, instrument, Eband)**" to calculate the exposure time needed. This function has three arguments:
 # - "**SNR**": Signal to Noise Ratio;
@@ -228,23 +229,30 @@ def calculate_exposure(SNR, instrument, Eband):
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
-# 
+# To edit the cells, `Click on the rocket` at the top of this page, and then `click on the "Live Code"` button.
 
 # 
 
 # ### Few examples
 # #### Powerlaw (example for the Crab)
 
-# In[22]:
+# Model and parameters:
+
+# In[23]:
 
 
-# Model and parameters
+
 model = "powerlaw"
 norm  = 10         # Flux normalisation in ph/cm2/s/keV
 Gamma = 2.1        # Photon index
 n_H   = 4.5        # Density column in 1e21 cm-2
 
-# Exposure time
+
+# Exposure time:
+
+# In[ ]:
+
+
 calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
 
 
