@@ -9,7 +9,7 @@
 # In[1]:
 
 
-get_ipython().system('wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt')
+#!wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
 get_ipython().system('pip install astroquery')
 
 
