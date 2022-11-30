@@ -77,7 +77,7 @@ def check_inB1_list(list_of_sources_file):
 
 # ## Using the source name
 
-# You can directly check by writing the source name. Below an example with Cygnus X-1. Click on the ```{image} logosvom.jpg``` button and then
+# You can directly check by writing the source name. Click on the rocket at the top of this page, and then click on the "Live mode" button to edit the cell below. Here an example for Cygnus X-1; try with your source!
 
 # In[4]:
 
