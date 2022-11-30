@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>How to use this notebook? &#8212; GP-tools</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
+    <link rel="prev" title="Check B1 law" href="check_b1_query-book.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logosvom.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">GP-tools</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to GP-tools Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="check_b1_query-book.html">
+   Check B1 law
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   How to use this notebook?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="markdown-notebooks.html">
+   Notebooks with MyST Markdown
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/exposure_time-book.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fexposure_time-book.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/exposure_time-book.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choose-the-type-of-model-you-want-to-use-and-define-the-parameters">
+   1) Choose the type of model you want to use and define the parameters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-powerlaw-powerlaw">
+     Simple powerlaw, “
+     <strong>
+      powerlaw
+     </strong>
+     ”:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#broken-powerlaw-bknpowerlaw">
+     Broken powerlaw, “
+     <strong>
+      bknpowerlaw
+     </strong>
+     ”:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cutoff-powerlaw-cutoffpl">
+     Cutoff powerlaw, “
+     <strong>
+      cutoffpl
+     </strong>
+     ”:
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2">
+       For the three models, absorption is taken into account thanks to the hydrogen density column parameter
+       <strong>
+        n_H
+       </strong>
+       , in
+       <strong>
+        <span class="math notranslate nohighlight">
+         \(10^{21}\)
+        </span>
+        cm
+        <span class="math notranslate nohighlight">
+         \(^{-2}\)
+        </span>
+       </strong>
+       .
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-the-exposure">
+   2) Calculate the exposure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#few-examples">
+   Few examples
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#powerlaw-example-for-the-crab">
+     Powerlaw (example for the Crab)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#broken-powerlaw">
+     Broken Powerlaw
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cutoff-powerlaw">
+     Cutoff Powerlaw
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>How to use this notebook?</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choose-the-type-of-model-you-want-to-use-and-define-the-parameters">
+   1) Choose the type of model you want to use and define the parameters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-powerlaw-powerlaw">
+     Simple powerlaw, “
+     <strong>
+      powerlaw
+     </strong>
+     ”:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#broken-powerlaw-bknpowerlaw">
+     Broken powerlaw, “
+     <strong>
+      bknpowerlaw
+     </strong>
+     ”:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cutoff-powerlaw-cutoffpl">
+     Cutoff powerlaw, “
+     <strong>
+      cutoffpl
+     </strong>
+     ”:
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2">
+       For the three models, absorption is taken into account thanks to the hydrogen density column parameter
+       <strong>
+        n_H
+       </strong>
+       , in
+       <strong>
+        <span class="math notranslate nohighlight">
+         \(10^{21}\)
+        </span>
+        cm
+        <span class="math notranslate nohighlight">
+         \(^{-2}\)
+        </span>
+       </strong>
+       .
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-the-exposure">
+   2) Calculate the exposure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#few-examples">
+   Few examples
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#powerlaw-example-for-the-crab">
+     Powerlaw (example for the Crab)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#broken-powerlaw">
+     Broken Powerlaw
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cutoff-powerlaw">
+     Cutoff Powerlaw
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">c</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">read_arf</span><span class="p">(</span><span class="n">arf_filename</span><span class="p">):</span>
+    <span class="n">hdu1</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">arf_filename</span><span class="p">)</span>
+    <span class="n">arf_data</span><span class="o">=</span><span class="n">hdu1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+    
+    <span class="n">emin</span> <span class="o">=</span> <span class="n">arf_data</span><span class="o">.</span><span class="n">ENERG_LO</span>
+    <span class="n">emax</span> <span class="o">=</span> <span class="n">arf_data</span><span class="o">.</span><span class="n">ENERG_HI</span>
+    <span class="n">arf</span> <span class="o">=</span> <span class="n">arf_data</span><span class="o">.</span><span class="n">SPECRESP</span>
+
+    <span class="n">dE</span> <span class="o">=</span> <span class="n">emax</span> <span class="o">-</span> <span class="n">emin</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">emin</span> <span class="o">+</span> <span class="p">(</span><span class="n">emax</span> <span class="o">-</span> <span class="n">emin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">E</span><span class="p">,</span> <span class="n">emin</span><span class="p">,</span> <span class="n">emax</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">arf</span>
+
+<span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="mf">1.5</span> <span class="o">/</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">absorption</span><span class="p">():</span>
+    <span class="c1"># From Strom &amp; Strom 1961</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;absorption.txt&quot;</span><span class="p">,</span> <span class="n">unpack</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span>
+                        <span class="n">skip_header</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">norm_I</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="n">c</span><span class="o">.</span><span class="n">speed_of_light</span> <span class="o">/</span> <span class="p">(</span><span class="n">wavelength</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span> <span class="o">*</span> <span class="mf">6.242e15</span> <span class="c1"># energy in keV</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">norm_I</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Fit</span>
+    <span class="n">params</span><span class="p">,</span> <span class="n">covs</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">norm_I</span><span class="p">,</span> <span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.50</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;params: &quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Best fit&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">plot_F</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Energy [keV]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;F(E) [ph/cm2/s/keV]&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_EF</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">EF</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">EF</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Energy [keV]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;EF(E) [ph/cm2/s]&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">calculate_norm_from_flux</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">,</span> <span class="n">Emin</span><span class="p">,</span> <span class="n">Emax</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">flux</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">Gamma</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Emax</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">Emin</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mf">6.242e8</span>
+
+<span class="k">def</span> <span class="nf">calculate_countrate</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">,</span> <span class="n">n_H</span><span class="p">,</span> <span class="n">Eband</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">instrument</span> <span class="o">==</span> <span class="s2">&quot;MXT&quot;</span><span class="p">):</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">emin</span><span class="p">,</span> <span class="n">emax</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">arf</span> <span class="o">=</span> <span class="n">read_arf</span><span class="p">(</span><span class="s2">&quot;MXT_FM_PANTER_FULL-ALL-1.0.arf&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">emin</span><span class="p">,</span> <span class="n">emax</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">arf</span> <span class="o">=</span> <span class="n">read_arf</span><span class="p">(</span><span class="s2">&quot;ECL_ARF.fits&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span><span class="p">((</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">dE</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Eband</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">E</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dE</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: energy band outside the arf energy range !&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">E_r</span> <span class="o">=</span> <span class="n">E</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">dE_r</span> <span class="o">=</span> <span class="n">dE</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">arf_r</span> <span class="o">=</span> <span class="n">arf</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">emax_r</span> <span class="o">=</span> <span class="n">emax</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">emin_r</span> <span class="o">=</span> <span class="n">emin</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        
+        <span class="n">a</span> <span class="o">=</span> <span class="mf">0.286733</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;powerlaw&quot;</span><span class="p">):</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">countrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arf_r</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">)</span>
+            
+        <span class="k">elif</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;cutoffpl&quot;</span><span class="p">):</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">E_r</span> <span class="o">/</span> <span class="n">E_cut</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">countrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arf_r</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">E_r</span> <span class="o">/</span> <span class="n">E_cut</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">)</span>
+            
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># Brokenpowerlaw</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">E_r</span><span class="p">))</span>
+            <span class="n">countrate</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">E_r</span><span class="p">)):</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">E_break</span><span class="p">):</span>
+                    <span class="n">F</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+                    <span class="n">countrate</span> <span class="o">+=</span> <span class="n">arf_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">F</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">E_break</span><span class="o">**</span><span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+                    <span class="n">countrate</span> <span class="o">+=</span> <span class="n">arf_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">E_break</span><span class="o">**</span><span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+                                    
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_r</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Source&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Energy [keV]&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;ph/cm2/s/keV&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">countrate</span>
+
+<span class="k">def</span> <span class="nf">calculate_background</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">Eband</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">instrument</span> <span class="o">==</span> <span class="s2">&quot;ECLAIRs&quot;</span><span class="p">):</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">emin</span><span class="p">,</span> <span class="n">emax</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">arf</span> <span class="o">=</span> <span class="n">read_arf</span><span class="p">(</span><span class="s2">&quot;ECL-RSP-ARF_20211023T01.fits&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">emin</span><span class="p">,</span> <span class="n">emax</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">arf</span> <span class="o">=</span> <span class="n">read_arf</span><span class="p">(</span><span class="s2">&quot;MXT_FM_PANTER_FULL-ALL-1.0.arf&quot;</span><span class="p">)</span>
+        
+    <span class="k">if</span><span class="p">((</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">dE</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Eband</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">E</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dE</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: energy band outside the arf energy range !&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">E_r</span> <span class="o">=</span> <span class="n">E</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">dE_r</span> <span class="o">=</span> <span class="n">dE</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">arf_r</span> <span class="o">=</span> <span class="n">arf</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">emax_r</span> <span class="o">=</span> <span class="n">emax</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">emin_r</span> <span class="o">=</span> <span class="n">emin</span><span class="p">[(</span><span class="n">E</span><span class="o">&gt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">E</span><span class="o">&lt;=</span><span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">instrument</span> <span class="o">==</span> <span class="s2">&quot;ECLAIRs&quot;</span><span class="p">):</span>
+            <span class="c1"># 2SJPL Model from Moretti+2009</span>
+            <span class="n">Gamma_1</span> <span class="o">=</span> <span class="mf">1.4</span>
+            <span class="n">Gamma_2</span> <span class="o">=</span> <span class="mf">2.88</span>
+            <span class="n">E_B</span> <span class="o">=</span> <span class="mi">29</span>             <span class="c1"># keV</span>
+            <span class="n">norm</span> <span class="o">=</span> <span class="mf">0.109</span>         <span class="c1"># ph/cm2/s/keV/sr</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">/</span> <span class="p">((</span><span class="n">E_r</span> <span class="o">/</span> <span class="n">E_B</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">Gamma_1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">E_r</span> <span class="o">/</span> <span class="n">E_B</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">Gamma_2</span><span class="p">))</span>
+            <span class="n">countrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arf_r</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.24</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="mf">0.3436</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">/</span> <span class="p">((</span><span class="n">E_r</span> <span class="o">/</span> <span class="n">E_B</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">Gamma_1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">E_r</span> <span class="o">/</span> <span class="n">E_B</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">Gamma_2</span><span class="p">))</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">)</span>
+            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Powerlaw Model from Moretti+2009</span>
+            <span class="n">norm</span> <span class="o">=</span> <span class="mf">3.67e-3</span> <span class="o">*</span> <span class="mi">65318</span> <span class="o">*</span> <span class="p">(</span><span class="mf">13.5</span><span class="o">*</span><span class="mf">0.0002777</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1">#norm in ph/cm2/s/keV/deg2 * nb pixel contributing to the PSF * (13.5 arcsec/pixel)**2</span>
+            <span class="n">Gamma</span> <span class="o">=</span> <span class="mf">1.47</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span>
+            <span class="n">countrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arf_r</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_r</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;CXB&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">countrate</span>
+
+<span class="k">def</span> <span class="nf">calculate_exposure</span><span class="p">(</span><span class="n">SNR</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">Eband</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Emin  = &quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;keV&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Emax  = &quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;keV&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;norm  = &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">norm</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s2">&quot;ph/s/cm2/keV&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;powerlaw&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gamma = &quot;</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">)</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;bknpowerlaw&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;alpha = &quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;beta  = &quot;</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;E_break = &quot;</span><span class="p">,</span> <span class="n">E_break</span><span class="p">,</span> <span class="s2">&quot;keV&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gamma = &quot;</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;E_cut = &quot;</span><span class="p">,</span> <span class="n">E_cut</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n_H   = &quot;</span><span class="p">,</span> <span class="n">n_H</span><span class="p">,</span> <span class="s2">&quot;e21 cm-2&quot;</span><span class="p">)</span>
+    
+    <span class="n">source</span> <span class="o">=</span> <span class="n">calculate_countrate</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">,</span> <span class="n">n_H</span><span class="p">,</span> <span class="n">Eband</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">instrument</span> <span class="o">==</span> <span class="s2">&quot;MXT&quot;</span><span class="p">):</span>
+        
+        <span class="n">background</span> <span class="o">=</span> <span class="n">calculate_background</span><span class="p">(</span><span class="s2">&quot;MXT&quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">)</span>
+        <span class="n">exposure</span> <span class="o">=</span> <span class="p">(</span><span class="n">SNR</span>  <span class="o">/</span> <span class="n">source</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">source</span> <span class="o">+</span> <span class="n">background</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">background</span> <span class="o">=</span> <span class="n">calculate_background</span><span class="p">(</span><span class="s2">&quot;ECLAIRs&quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">)</span>
+        <span class="n">exposure</span> <span class="o">=</span> <span class="p">(</span><span class="n">SNR</span>  <span class="o">/</span> <span class="n">source</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">source</span> <span class="o">/</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="n">background</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># Skinner+2008</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Background =&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">background</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s2">&quot;c/s in the energy band&quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">,</span> <span class="s2">&quot;keV.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Source =&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s2">&quot;c/s in the energy band&quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">,</span> <span class="s2">&quot;keV.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="s2">&quot;: need an exposure time of&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">exposure</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s2">&quot;seconds for a SNR =&quot;</span><span class="p">,</span> <span class="n">SNR</span><span class="p">,</span> <span class="s2">&quot;over the energy band&quot;</span><span class="p">,</span> <span class="n">Eband</span><span class="p">,</span> <span class="s2">&quot;keV.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="how-to-use-this-notebook">
+<h1>How to use this notebook?<a class="headerlink" href="#how-to-use-this-notebook" title="Permalink to this heading">#</a></h1>
+<p>This notebook uses ancillary response files of MXT and ECLAIRs in order to calculate the exposure time needed to achieve a signal to noise ratio given the spectrum of a source.</p>
+<section id="choose-the-type-of-model-you-want-to-use-and-define-the-parameters">
+<h2>1) Choose the type of model you want to use and define the parameters<a class="headerlink" href="#choose-the-type-of-model-you-want-to-use-and-define-the-parameters" title="Permalink to this heading">#</a></h2>
+<p><strong>Three types</strong> of models can be used:</p>
+<section id="simple-powerlaw-powerlaw">
+<h3>Simple powerlaw, “<strong>powerlaw</strong>”:<a class="headerlink" href="#simple-powerlaw-powerlaw" title="Permalink to this heading">#</a></h3>
+<p>\begin{equation}
+N(E) = \phi_0 E^{-\Gamma}
+\end{equation}</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi_0\)</span>: flux normalization in <strong>ph/cm2/s/keV</strong>, named “<strong>norm</strong>” in this notebook;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma\)</span>: photon index, named “<strong>Gamma</strong>” in this notebook.</p></li>
+</ul>
+<p><strong>NB</strong>: for this model, you can alternatively calculate the flux normalization <span class="math notranslate nohighlight">\(\phi_0\)</span> by calling <strong>calculate_norm_from_flux(unabsorbed_flux, Gamma, Emin, Emax)</strong> and giving the <em><strong>unabsorbed flux</strong></em> in <strong>ergs/cm2/s</strong> between <strong>Emin keV</strong> and <strong>Emax keV</strong>.</p>
+</section>
+<section id="broken-powerlaw-bknpowerlaw">
+<h3>Broken powerlaw, “<strong>bknpowerlaw</strong>”:<a class="headerlink" href="#broken-powerlaw-bknpowerlaw" title="Permalink to this heading">#</a></h3>
+<p>\begin{equation}
+N(E) = \left{
+\begin{array}{ll}
+\phi_0 E^{-\alpha} &amp; \mbox{if } E \leq E_\mathrm{break} \
+\phi_0 E_\mathrm{break}^{\beta-\alpha} E^{-\beta} &amp; \mbox{if } E &gt; E_\mathrm{break}
+\end{array}
+\right.
+\end{equation}</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi_0\)</span>: flux normalization in <strong>ph/cm2/s/keV</strong>, named “<strong>norm</strong>” in this notebook;</p></li>
+<li><p><span class="math notranslate nohighlight">\(E_\mathrm{break}\)</span>: break energy in <strong>keV</strong>, named “<strong>E_break</strong>” in this notebook;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>: photon index of the low energy powerlaw, named “<strong>alpha</strong>” in this notebook;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span>: photon index of the high energy powerlaw, named “<strong>beta</strong>” in this notebook.</p></li>
+</ul>
+</section>
+<section id="cutoff-powerlaw-cutoffpl">
+<h3>Cutoff powerlaw, “<strong>cutoffpl</strong>”:<a class="headerlink" href="#cutoff-powerlaw-cutoffpl" title="Permalink to this heading">#</a></h3>
+<p>\begin{equation}
+N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}}
+\end{equation}</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi_0\)</span>: flux normalization in <strong>ph/cm2/s/keV</strong>, named “<strong>norm</strong>” in this notebook;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma\)</span>: photon index, named “<strong>Gamma</strong>” in this notebook;</p></li>
+<li><p><span class="math notranslate nohighlight">\(E_\mathrm{cut}\)</span>: cutoff energy in <strong>keV</strong>, “<strong>E_cut</strong>” in this notebook.</p></li>
+</ul>
+<section id="for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2">
+<h4>For the three models, absorption is taken into account thanks to the hydrogen density column parameter <strong>n_H</strong>, in <strong><span class="math notranslate nohighlight">\(10^{21}\)</span>cm<span class="math notranslate nohighlight">\(^{-2}\)</span></strong>.<a class="headerlink" href="#for-the-three-models-absorption-is-taken-into-account-thanks-to-the-hydrogen-density-column-parameter-n-h-in-10-21-cm-2" title="Permalink to this heading">#</a></h4>
+</section>
+</section>
+</section>
+<section id="calculate-the-exposure">
+<h2>2) Calculate the exposure<a class="headerlink" href="#calculate-the-exposure" title="Permalink to this heading">#</a></h2>
+<p>Once you have defined your model and the corresponding parameters, you can call “<strong>calculate_exposure(SNR, instrument, Eband)</strong>” to calculate the exposure time needed. This function has three arguments:</p>
+<ul class="simple">
+<li><p>“<strong>SNR</strong>”: Signal to Noise Ratio;</p></li>
+<li><p>“<strong>instrument</strong>”: you can choose between “MXT” or “ECLAIRs”;</p></li>
+<li><p>“<strong>Eband</strong>”: energy band for which you want to calculate the exposure time, [<strong>Emin</strong>, <strong>Emax</strong>], <strong>Emin</strong> and <strong>Emax</strong> in <strong>keV</strong>.</p></li>
+</ul>
+</section>
+<section id="few-examples">
+<h2>Few examples<a class="headerlink" href="#few-examples" title="Permalink to this heading">#</a></h2>
+<section id="powerlaw-example-for-the-crab">
+<h3>Powerlaw (example for the Crab)<a class="headerlink" href="#powerlaw-example-for-the-crab" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model and parameters</span>
+<span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;powerlaw&quot;</span>
+<span class="n">norm</span>  <span class="o">=</span> <span class="mi">10</span>         <span class="c1"># Flux normalisation in ph/cm2/s/keV</span>
+<span class="n">Gamma</span> <span class="o">=</span> <span class="mf">2.1</span>        <span class="c1"># Photon index</span>
+<span class="n">n_H</span>   <span class="o">=</span> <span class="mf">4.5</span>        <span class="c1"># Density column in 1e21 cm-2</span>
+
+<span class="c1"># Exposure time</span>
+<span class="n">calculate_exposure</span><span class="p">(</span><span class="n">SNR</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;ECLAIRs&quot;</span><span class="p">,</span> <span class="n">Eband</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Emin  =  4 keV
+Emax  =  150 keV
+norm  =  10.0000 ph/s/cm2/keV
+Gamma =  2.1
+n_H   =  4.5 e21 cm-2
+Background = 3587.2578 c/s in the energy band [4, 150] keV.
+Source = 531.7378 c/s in the energy band [4, 150] keV.
+ECLAIRs : need an exposure time of 1.74 seconds for a SNR = 10 over the energy band [4, 150] keV.
+</pre></div>
+</div>
+<img alt="_images/exposure_time-book_5_1.png" src="_images/exposure_time-book_5_1.png" />
+</div>
+</div>
+<p>Alternatively, you can give the unabsorbed flux to calculate the flux normalization:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unabsorbed_flux</span> <span class="o">=</span> <span class="mf">2.24e-8</span>   <span class="c1"># Unabsorbed flux in ergs/cm2/s between 2-10 keV</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">calculate_norm_from_flux</span><span class="p">(</span><span class="n">unabsorbed_flux</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">calculate_exposure</span><span class="p">(</span><span class="n">SNR</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;MXT&quot;</span><span class="p">,</span> <span class="n">Eband</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Emin  =  0.2 keV
+Emax  =  10 keV
+norm  =  10.0805 ph/s/cm2/keV
+Gamma =  2.1
+n_H   =  4.5 e21 cm-2
+Background = 0.2285 c/s in the energy band [0.2, 10] keV.
+Source = 131.8547 c/s in the energy band [0.2, 10] keV.
+MXT : need an exposure time of 0.19 seconds for a SNR = 5 over the energy band [0.2, 10] keV.
+</pre></div>
+</div>
+<img alt="_images/exposure_time-book_7_1.png" src="_images/exposure_time-book_7_1.png" />
+</div>
+</div>
+</section>
+<section id="broken-powerlaw">
+<h3>Broken Powerlaw<a class="headerlink" href="#broken-powerlaw" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span>   <span class="o">=</span> <span class="s2">&quot;bknpowerlaw&quot;</span>
+<span class="n">norm</span>    <span class="o">=</span> <span class="mf">0.1</span>           <span class="c1"># Flux normalisation in ph/cm2/s/keV</span>
+<span class="n">E_break</span> <span class="o">=</span> <span class="mi">30</span>            <span class="c1"># Break energy in keV</span>
+<span class="n">alpha</span>   <span class="o">=</span> <span class="mf">1.3</span>           <span class="c1"># Photon index of the low energy powerlaw</span>
+<span class="n">beta</span>    <span class="o">=</span> <span class="mf">2.6</span>           <span class="c1"># Photon index of the high energy powerlaw</span>
+<span class="n">n_H</span>     <span class="o">=</span> <span class="mf">2.0</span>           <span class="c1"># Density column in 1e21 cm-2</span>
+<span class="n">calculate_exposure</span><span class="p">(</span><span class="n">SNR</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;ECLAIRs&quot;</span><span class="p">,</span> <span class="n">Eband</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Emin  =  4 keV
+Emax  =  150 keV
+norm  =  0.1000 ph/s/cm2/keV
+alpha =  1.3
+beta  =  2.6
+E_break =  30 keV
+n_H   =  2.0 e21 cm-2
+Background = 3587.2578 c/s in the energy band [4, 150] keV.
+Source = 36.3873 c/s in the energy band [4, 150] keV.
+ECLAIRs : need an exposure time of 2500.24 seconds for a SNR = 30 over the energy band [4, 150] keV.
+</pre></div>
+</div>
+<img alt="_images/exposure_time-book_9_1.png" src="_images/exposure_time-book_9_1.png" />
+</div>
+</div>
+</section>
+<section id="cutoff-powerlaw">
+<h3>Cutoff Powerlaw<a class="headerlink" href="#cutoff-powerlaw" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;cutoffpl&quot;</span>
+<span class="n">norm</span>  <span class="o">=</span> <span class="mf">0.1</span>         <span class="c1"># Flux normalisation in ph/cm2/s/keV</span>
+<span class="n">E_cut</span> <span class="o">=</span> <span class="mi">40</span>          <span class="c1"># Energy cutoff in keV</span>
+<span class="n">Gamma</span> <span class="o">=</span> <span class="mf">1.7</span>         <span class="c1"># Photon index</span>
+<span class="n">n_H</span>   <span class="o">=</span> <span class="mi">0</span>           <span class="c1"># Density column in 1e21 cm-2</span>
+<span class="n">calculate_exposure</span><span class="p">(</span><span class="n">SNR</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">instrument</span> <span class="o">=</span> <span class="s2">&quot;ECLAIRs&quot;</span><span class="p">,</span> <span class="n">Eband</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Emin  =  4 keV
+Emax  =  100 keV
+norm  =  0.1000 ph/s/cm2/keV
+Gamma =  1.7
+E_cut =  40
+n_H   =  0 e21 cm-2
+Background = 3569.5199 c/s in the energy band [4, 100] keV.
+Source = 9.5452 c/s in the energy band [4, 100] keV.
+ECLAIRs : need an exposure time of 3943.98 seconds for a SNR = 10 over the energy band [4, 100] keV.
+</pre></div>
+</div>
+<img alt="_images/exposure_time-book_11_1.png" src="_images/exposure_time-book_11_1.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="check_b1_query-book.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Check B1 law</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="markdown-notebooks.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Notebooks with MyST Markdown</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By SVOM General Program<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
