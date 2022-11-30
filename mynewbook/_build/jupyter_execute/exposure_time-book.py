@@ -185,8 +185,6 @@ def calculate_exposure(SNR, instrument, Eband):
     print(instrument, ": need an exposure time of", f'{exposure:.2f}', "seconds for a SNR =", SNR, "over the energy band", Eband, "keV.")
 
 
-# ## How to use this notebook?
-# 
 # This notebook uses ancillary response files of MXT and ECLAIRs in order to calculate the exposure time needed to achieve a signal to noise ratio given the spectrum of a source.
 # ### 1) Choose the type of model you want to use and define the parameters
 # **Three types** of models can be used: 
