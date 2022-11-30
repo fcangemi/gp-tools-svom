@@ -186,56 +186,56 @@ def calculate_exposure(SNR, instrument, Eband):
 
 
 # This notebook uses ancillary response files of MXT and ECLAIRs in order to calculate the exposure time needed to achieve a signal to noise ratio given the spectrum of a source.
-# ### 1) Choose the type of model you want to use and define the parameters
+# #### 1) Choose the type of model you want to use and define the parameters
 # **Three types** of models can be used: 
 # 
-# #### Simple powerlaw, "**powerlaw**":
-# \begin{equation}
+# ##### Simple powerlaw, "**powerlaw**":
+# $$
 # N(E) = \phi_0 E^{-\Gamma}
-# \end{equation}
+# $$
 # - $\phi_0$: flux normalization in **ph/cm2/s/keV**, named "**norm**" in this notebook;
 # - $\Gamma$: photon index, named "**Gamma**" in this notebook.
 # 
 # **NB**: for this model, you can alternatively calculate the flux normalization $\phi_0$ by calling **calculate_norm_from_flux(unabsorbed_flux, Gamma, Emin, Emax)** and giving the ***unabsorbed flux*** in **ergs/cm2/s** between **Emin keV** and **Emax keV**.
 # 
-# #### Broken powerlaw, "**bknpowerlaw**":
-# \begin{equation}
+# ##### Broken powerlaw, "**bknpowerlaw**":
+# $$
 # N(E) = \left\{
 #     \begin{array}{ll}
 #         \phi_0 E^{-\alpha} & \mbox{if } E \leq E_\mathrm{break} \\
 #         \phi_0 E_\mathrm{break}^{\beta-\alpha} E^{-\beta} & \mbox{if } E > E_\mathrm{break}
 #     \end{array}
 # \right.
-# \end{equation}
+# $$
 # - $\phi_0$: flux normalization in **ph/cm2/s/keV**, named "**norm**" in this notebook;
 # - $E_\mathrm{break}$: break energy in **keV**, named "**E_break**" in this notebook;
 # - $\alpha$: photon index of the low energy powerlaw, named "**alpha**" in this notebook;
 # - $\beta$: photon index of the high energy powerlaw, named "**beta**" in this notebook.
 # 
-# #### Cutoff powerlaw, "**cutoffpl**":
-# \begin{equation}
+# ##### Cutoff powerlaw, "**cutoffpl**":
+# $$
 # N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}} 
-# \end{equation}
+# $$
 # - $\phi_0$: flux normalization in **ph/cm2/s/keV**, named "**norm**" in this notebook;
 # - $\Gamma$: photon index, named "**Gamma**" in this notebook;
 # - $E_\mathrm{cut}$: cutoff energy in **keV**, "**E_cut**" in this notebook.
 # 
-# ##### For the three models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.
-# ### 2) Calculate the exposure
+# `For the three models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.`
+# #### 2) Calculate the exposure
 # Once you have defined your model and the corresponding parameters, you can call "**calculate_exposure(SNR, instrument, Eband)**" to calculate the exposure time needed. This function has three arguments:
 # - "**SNR**": Signal to Noise Ratio;
 # - "**instrument**": you can choose between "MXT" or "ECLAIRs";
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
-# $$
-# N(E) = \phi_0 E^{-\Gamma}
-# $$
+# 
+
+# 
 
 # ### Few examples
 # #### Powerlaw (example for the Crab)
 
-# In[21]:
+# In[22]:
 
 
 # Model and parameters
