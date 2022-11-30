@@ -77,17 +77,17 @@ def check_inB1_list(list_of_sources_file):
 
 # ## Using the source name
 
+# You can directly check by writing the source name. Below an example with Cygnus X-1. Click on the {glue:logosvom.jpg} button and then
+
 # In[4]:
 
 
 check_inB1_name("Cygnus X-1")
 
 
-# In[ ]:
+# ## Using a list of sources
 
-
-
-
+# 
 
 # In[ ]:
 
