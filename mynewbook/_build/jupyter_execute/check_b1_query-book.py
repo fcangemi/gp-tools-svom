@@ -105,12 +105,13 @@ list_of_sources = ["Mrk 501",
                    "1ES 1011+496",
                    "1ES 1215+303"
                     ]
+check_inB1_list(list_of_sources)
 
 
 # In[10]:
 
 
-check_inB1_list(list_of_sources)
+
 
 
 # In[ ]:
