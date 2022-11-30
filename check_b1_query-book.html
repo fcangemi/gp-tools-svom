@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; GP-tools</title>
+    <title>Check B1 law &#8212; GP-tools</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -113,7 +113,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="markdown.html">
    Markdown Files
@@ -127,6 +127,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="markdown-notebooks.html">
    Notebooks with MyST Markdown
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Check B1 law
   </a>
  </li>
 </ul>
@@ -180,6 +185,53 @@ title="Toggle navigation"
         
     </div>
     <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/check_b1_query-book.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
 <button onclick="toggleFullScreen()"
   class="headerbtn"
   data-toggle="tooltip"
@@ -305,7 +357,12 @@ title="Print to PDF"
         <i class="fas fa-list"></i> Contents
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="simple visible nav section-nav flex-column">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-source-name">
+   Using the source name
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -315,7 +372,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1><no title></h1>
+                <h1>Check B1 law</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -324,7 +381,12 @@ title="Print to PDF"
                             <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
-                            <ul class="simple visible nav section-nav flex-column">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-source-name">
+   Using the source name
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -335,7 +397,114 @@ title="Print to PDF"
                 
               <div>
                 
-  
+  <section class="tex2jax_ignore mathjax_ignore" id="check-b1-law">
+<h1>Check B1 law<a class="headerlink" href="#check-b1-law" title="Permalink to this heading">#</a></h1>
+<p>With this notebook, you can check whether a source is in B1 law or not.
+The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 11:12:31--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 13616 (13K) [text/plain]
+Saving to: &#39;B1_law.txt.3&#39;
+
+
+B1_law.txt.3          0%[                    ]       0  --.-KB/s               
+B1_law.txt.3        100%[===================&gt;]  13.30K  --.-KB/s    in 0s      
+
+2022-11-30 11:12:31 (34.9 MB/s) - &#39;B1_law.txt.3&#39; saved [13616/13616]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.simbad</span> <span class="kn">import</span> <span class="n">Simbad</span>
+<span class="kn">from</span> <span class="nn">astroquery.vizier</span> <span class="kn">import</span> <span class="n">Vizier</span>
+<span class="kn">from</span> <span class="nn">astroquery.ipac.ned</span> <span class="kn">import</span> <span class="n">Ned</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span><span class="p">,</span> <span class="n">Galactic</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">result_table</span> <span class="o">=</span> <span class="n">Simbad</span><span class="o">.</span><span class="n">query_object</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">result_table</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to find&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">),</span> <span class="s2">&quot;, please enter the source coordinates:&quot;</span><span class="p">)</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;ra (degrees):&quot;</span><span class="p">))</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;dec (degrees):&quot;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="n">result_table</span><span class="p">[</span><span class="s2">&quot;RA&quot;</span><span class="p">]</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="n">result_table</span><span class="p">[</span><span class="s2">&quot;DEC&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">source</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span>
+
+<span class="k">def</span> <span class="nf">read_B1</span><span class="p">():</span>
+    <span class="n">b1_law</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;B1_law.txt&quot;</span><span class="p">,</span> <span class="n">unpack</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">b1_ras</span> <span class="o">=</span> <span class="n">b1_law</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">b1_decs</span> <span class="o">=</span> <span class="n">b1_law</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span>
+
+<span class="k">def</span> <span class="nf">check_inB1_name</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">source</span><span class="p">,</span> <span class="n">ra_source</span><span class="p">,</span> <span class="n">dec_source</span> <span class="o">=</span> <span class="n">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span> <span class="o">=</span> <span class="n">read_B1</span><span class="p">()</span>
+    <span class="n">c_source</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra_source</span><span class="p">,</span> <span class="n">dec_source</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">hourangle</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">))</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">all_sep</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">b1_ra</span><span class="p">,</span> <span class="n">b1_dec</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span><span class="p">):</span>
+        <span class="n">c_b1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">b1_ra</span><span class="p">,</span> <span class="n">b1_dec</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;deg&quot;</span><span class="p">)</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="n">c_source</span><span class="o">.</span><span class="n">separation</span><span class="p">(</span><span class="n">c_b1</span><span class="p">)</span>
+        <span class="n">all_sep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sep</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">sep</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s2">&quot;is not in B1 law, minimal separation =&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_sep</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s2">&quot;is in B1 law&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_inB1_list</span><span class="p">(</span><span class="n">list_of_sources_file</span><span class="p">):</span>
+    <span class="n">list_of_source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">list_of_sources_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">list_of_source</span><span class="p">:</span>
+        <span class="n">check_inB1_name</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="using-the-source-name">
+<h2>Using the source name<a class="headerlink" href="#using-the-source-name" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">check_inB1_name</span><span class="p">(</span><span class="s2">&quot;Cygnus X-1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cygnus X-1 is not in B1 law, minimal separation = [62.11449208] deg
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
