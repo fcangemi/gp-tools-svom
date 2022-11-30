@@ -401,6 +401,114 @@ title="Print to PDF"
 <h1>Check B1 law<a class="headerlink" href="#check-b1-law" title="Permalink to this heading">#</a></h1>
 <p>With this notebook, you can check whether a source is in B1 law or not.
 The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.</p>
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+<span class="o">!</span>pip install astroquery
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-11-30 14:05:31--  https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.109.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 13616 (13K) [text/plain]
+Saving to: &#39;B1_law.txt.5&#39;
+
+B1_law.txt.5        100%[===================&gt;]  13.30K  --.-KB/s    in 0s      
+
+2022-11-30 14:05:31 (49.2 MB/s) - &#39;B1_law.txt.5&#39; saved [13616/13616]
+
+Requirement already satisfied: astroquery in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (0.4.6)
+Requirement already satisfied: numpy&gt;=1.16 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.21.5)
+Requirement already satisfied: astropy&gt;=4.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (5.1)
+Requirement already satisfied: requests&gt;=2.4.3 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (2.28.1)
+Requirement already satisfied: beautifulsoup4&gt;=4.3.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (4.11.1)
+Requirement already satisfied: html5lib&gt;=0.999 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.1)
+Requirement already satisfied: keyring&gt;=4.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (23.4.0)
+Requirement already satisfied: pyvo&gt;=1.1 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.4)
+Requirement already satisfied: PyYAML&gt;=3.13 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (6.0)
+Requirement already satisfied: pyerfa&gt;=2.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (2.0.0)
+Requirement already satisfied: packaging&gt;=19.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy&gt;=4.0-&gt;astroquery) (21.3)
+Requirement already satisfied: soupsieve&gt;1.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from beautifulsoup4&gt;=4.3.2-&gt;astroquery) (2.3.1)
+Requirement already satisfied: webencodings in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from html5lib&gt;=0.999-&gt;astroquery) (0.5.1)
+Requirement already satisfied: six&gt;=1.9 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from html5lib&gt;=0.999-&gt;astroquery) (1.16.0)
+Requirement already satisfied: importlib-metadata&gt;=3.6 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from keyring&gt;=4.0-&gt;astroquery) (4.11.3)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (2.0.4)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (3.3)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (1.26.11)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from requests&gt;=2.4.3-&gt;astroquery) (2022.9.24)
+Requirement already satisfied: zipp&gt;=0.5 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from importlib-metadata&gt;=3.6-&gt;keyring&gt;=4.0-&gt;astroquery) (3.8.0)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from packaging&gt;=19.0-&gt;astropy&gt;=4.0-&gt;astroquery) (3.0.9)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.simbad</span> <span class="kn">import</span> <span class="n">Simbad</span>
+<span class="kn">from</span> <span class="nn">astroquery.vizier</span> <span class="kn">import</span> <span class="n">Vizier</span>
+<span class="kn">from</span> <span class="nn">astroquery.ipac.ned</span> <span class="kn">import</span> <span class="n">Ned</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span><span class="p">,</span> <span class="n">Galactic</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">result_table</span> <span class="o">=</span> <span class="n">Simbad</span><span class="o">.</span><span class="n">query_object</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">result_table</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to find&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">),</span> <span class="s2">&quot;, please enter the source coordinates:&quot;</span><span class="p">)</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;ra (degrees):&quot;</span><span class="p">))</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;dec (degrees):&quot;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="n">result_table</span><span class="p">[</span><span class="s2">&quot;RA&quot;</span><span class="p">]</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="n">result_table</span><span class="p">[</span><span class="s2">&quot;DEC&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">source</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span>
+
+<span class="k">def</span> <span class="nf">read_B1</span><span class="p">():</span>
+    <span class="n">b1_law</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;B1_law.txt&quot;</span><span class="p">,</span> <span class="n">unpack</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">b1_ras</span> <span class="o">=</span> <span class="n">b1_law</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">b1_decs</span> <span class="o">=</span> <span class="n">b1_law</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span>
+
+<span class="k">def</span> <span class="nf">check_inB1_name</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">source</span><span class="p">,</span> <span class="n">ra_source</span><span class="p">,</span> <span class="n">dec_source</span> <span class="o">=</span> <span class="n">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span> <span class="o">=</span> <span class="n">read_B1</span><span class="p">()</span>
+    <span class="n">c_source</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra_source</span><span class="p">,</span> <span class="n">dec_source</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">hourangle</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">))</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">all_sep</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">b1_ra</span><span class="p">,</span> <span class="n">b1_dec</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span><span class="p">):</span>
+        <span class="n">c_b1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">b1_ra</span><span class="p">,</span> <span class="n">b1_dec</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;deg&quot;</span><span class="p">)</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="n">c_source</span><span class="o">.</span><span class="n">separation</span><span class="p">(</span><span class="n">c_b1</span><span class="p">)</span>
+        <span class="n">all_sep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sep</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">sep</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s2">&quot;is not in B1 law, minimal separation =&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_sep</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s2">&quot;is in B1 law&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_inB1_list</span><span class="p">(</span><span class="n">list_of_sources_file</span><span class="p">):</span>
+    <span class="n">list_of_source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">list_of_sources_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">list_of_source</span><span class="p">:</span>
+        <span class="n">check_inB1_name</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <section id="using-the-source-name">
 <h2>Using the source name<a class="headerlink" href="#using-the-source-name" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
