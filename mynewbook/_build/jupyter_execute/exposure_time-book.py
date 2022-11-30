@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[161]:
+# # Estimate exposure time
+
+# In[13]:
 
 
-get_ipython().system('')
+get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
+get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 
 
-# In[ ]:
+# In[14]:
 
 
 from astropy.io import fits
@@ -17,7 +20,7 @@ from scipy import constants as c
 from scipy.optimize import curve_fit
 
 
-# In[162]:
+# In[15]:
 
 
 def read_arf(arf_filename):
@@ -77,7 +80,7 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
     if(instrument == "MXT"):
         E, emin, emax, dE, arf = read_arf("MXT_FM_PANTER_FULL-ALL-1.0.arf")
     else:
-        E, emin, emax, dE, arf = read_arf("ECL_ARF.fits")
+        E, emin, emax, dE, arf = read_arf("ECL-RSP-ARF_20211023T01.fits")
 
     if((Eband[0] <= E[0] - dE[0]) or (Eband[-1] >= E[-1] + dE[-1])):
         print("ERROR: energy band outside the arf energy range !")
@@ -230,7 +233,7 @@ def calculate_exposure(SNR, instrument, Eband):
 # ### Few examples
 # #### Powerlaw (example for the Crab)
 
-# In[164]:
+# In[16]:
 
 
 # Model and parameters
@@ -245,7 +248,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[157]:
+# In[ ]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
