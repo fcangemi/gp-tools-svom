@@ -24,7 +24,7 @@ import plotly.express as px
 import plotly.offline as py
 
 
-# In[48]:
+# In[93]:
 
 
 def read_arf(arf_filename):
@@ -122,10 +122,8 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
                     countrate += arf_r[i] * norm * E_r[i]**(-beta) * E_break**(beta - alpha) * dE_r[i] * np.exp(- n_H * a / E_r[i]**3)
         d = {"Energy [keV]": E_r, "Flux ph/cm2/s/keV": F}
         df = pd.DataFrame(data = d)
-        fig = px.scatter(df)
+        fig = px.line(df, x = "Energy [keV]", y = "Flux ph/cm2/s/keV", log_x = True, log_y = True)
         fig.show()
-        #source = pd.DataFrame({"x": E_r, "f(x)": F})
-        #alt.Chart(source).mark_line().encode(x = "x", y = "f(x)")
         #p = figure()
         #p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
         #           x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
@@ -167,6 +165,7 @@ def calculate_background(instrument, Eband):
             Gamma = 1.47
             F = norm * E_r**(-Gamma)
             countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)
+        
         #plt.plot(E_r, F, color = "blue", label = "CXB")
         #plt.legend()
     return countrate
@@ -257,7 +256,7 @@ def calculate_exposure(SNR, instrument, Eband):
 
 # Model and parameters:
 
-# In[49]:
+# In[94]:
 
 
 
@@ -269,15 +268,15 @@ n_H   = 4.5        # Density column in 1e21 cm-2
 
 # Exposure time:
 
-# In[50]:
+# In[95]:
 
 
-calculate_exposure(SNR = 10, instrument = "MXT", Eband = [0.2, 10])
+calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
 
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[15]:
+# In[96]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -287,7 +286,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[16]:
+# In[97]:
 
 
 model   = "bknpowerlaw"
@@ -301,7 +300,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[17]:
+# In[98]:
 
 
 model = "cutoffpl"
@@ -314,7 +313,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[18]:
+# In[99]:
 
 
 model = "bbody"
@@ -322,6 +321,18 @@ norm = 1.
 n_H = 0.
 kT = 0.5
 calculate_exposure(SNR = 7, instrument = "MXT", Eband = [0.2, 10])
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
