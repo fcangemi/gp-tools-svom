@@ -3,7 +3,7 @@
 
 # # Estimate exposure time
 
-# In[31]:
+# In[1]:
 
 
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
@@ -11,7 +11,7 @@ get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MX
 get_ipython().system('pip install astropy')
 
 
-# In[100]:
+# In[2]:
 
 
 from astropy.io import fits
@@ -22,11 +22,16 @@ import pandas as pd
 #import plotly.io as pio
 #import plotly.express as px
 #import plotly.offline as py
+
+
+# In[3]:
+
+
 from bokeh.plotting import figure, show, output_notebook
 output_notebook()
 
 
-# In[110]:
+# In[4]:
 
 
 def read_arf(arf_filename):
@@ -258,7 +263,7 @@ def calculate_exposure(SNR, instrument, Eband):
 
 # Model and parameters:
 
-# In[111]:
+# In[5]:
 
 
 
@@ -270,7 +275,7 @@ n_H   = 4.5        # Density column in 1e21 cm-2
 
 # Exposure time:
 
-# In[112]:
+# In[6]:
 
 
 calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
@@ -278,7 +283,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[113]:
+# In[7]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -288,7 +293,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[114]:
+# In[8]:
 
 
 model   = "bknpowerlaw"
@@ -302,7 +307,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[115]:
+# In[9]:
 
 
 model = "cutoffpl"
@@ -315,7 +320,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[116]:
+# In[10]:
 
 
 model = "bbody"

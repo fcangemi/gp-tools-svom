@@ -6,14 +6,14 @@
 # With this notebook, you can check whether a source is in B1 law or not.
 # The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.
 
-# In[12]:
+# In[1]:
 
 
 get_ipython().system('wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt')
 get_ipython().system('pip install astroquery')
 
 
-# In[13]:
+# In[2]:
 
 
 from astroquery.simbad import Simbad
@@ -27,7 +27,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-# In[14]:
+# In[3]:
 
 
 def which_source(source):
@@ -81,7 +81,7 @@ def check_inB1_list(list_of_sources):
 # 
 # Here an example for Cygnus X-1; `write your source name` and then `click on "run"`.
 
-# In[15]:
+# In[4]:
 
 
 check_inB1_name("Cygnus X-1")
@@ -91,7 +91,7 @@ check_inB1_name("Cygnus X-1")
 
 # Alternatively, you can provide a list of sources:
 
-# In[16]:
+# In[5]:
 
 
 list_of_sources = ["Mrk 501",
