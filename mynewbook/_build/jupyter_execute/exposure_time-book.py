@@ -9,6 +9,7 @@
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 get_ipython().system('pip install astropy')
+get_ipython().system('pip install jupyter_bokeh')
 
 
 # In[2]:
