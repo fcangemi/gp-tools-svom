@@ -255,7 +255,7 @@ def calculate_exposure(SNR, instrument, Eband):
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
-# To edit the cells, `click on the rocket` at the top of this page, and then `click on the "Live Code"` button. Once your cell is edited you can `click on "run"`or `"restart & run all"`.
+# To edit the cells, `click on the rocket` at the top of this page, and then `click on the "Live Code"` button. Once your cell is edited you can `click on "run"` (the first time you are running, you may need to click on `"restart & run all"`).
 
 # ### Few examples
 # #### Powerlaw (example for the Crab)
