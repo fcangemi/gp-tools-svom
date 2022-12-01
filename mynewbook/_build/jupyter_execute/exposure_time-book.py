@@ -3,16 +3,16 @@
 
 # # Estimate exposure time
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 get_ipython().system('pip install astropy')
-get_ipython().system('jupyter labextension install jupyterlab_bokeh')
+get_ipython().system('pip install jupyter_bokeh')
 
 
-# In[2]:
+# In[ ]:
 
 
 from astropy.io import fits
@@ -22,7 +22,7 @@ from bokeh.plotting import figure, show, output_notebook
 output_notebook()
 
 
-# In[3]:
+# In[ ]:
 
 
 def read_arf(arf_filename):
@@ -240,7 +240,7 @@ def calculate_exposure(SNR, instrument, Eband):
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
-# To edit the cells, `Click on the rocket` at the top of this page, and then `click on the "Live Code"` button.
+# To edit the cells, `click on the rocket` at the top of this page, and then `click on the "Live Code"` button. Once your cell is edited you can click on "run"
 
 # 
 
@@ -249,7 +249,7 @@ def calculate_exposure(SNR, instrument, Eband):
 
 # Model and parameters:
 
-# In[4]:
+# In[ ]:
 
 
 
@@ -261,7 +261,7 @@ n_H   = 4.5        # Density column in 1e21 cm-2
 
 # Exposure time:
 
-# In[5]:
+# In[ ]:
 
 
 calculate_exposure(SNR = 10, instrument = "MXT", Eband = [0.2, 10])
@@ -269,7 +269,7 @@ calculate_exposure(SNR = 10, instrument = "MXT", Eband = [0.2, 10])
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[6]:
+# In[ ]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -279,7 +279,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[7]:
+# In[ ]:
 
 
 model   = "bknpowerlaw"
@@ -293,7 +293,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[8]:
+# In[ ]:
 
 
 model = "cutoffpl"
@@ -306,7 +306,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[9]:
+# In[ ]:
 
 
 model = "bbody"
