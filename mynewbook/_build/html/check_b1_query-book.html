@@ -402,7 +402,15 @@ title="Print to PDF"
 <h1>Check B1 law<a class="headerlink" href="#check-b1-law" title="Permalink to this heading">#</a></h1>
 <p>With this notebook, you can check whether a source is in B1 law or not.
 The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.</p>
-<div class="cell tag_remove-input tag_thebe-init docutils container">
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;B1_law.txt&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt&quot;</span><span class="p">)</span>
+<span class="o">!</span>pip install astroquery
+</pre></div>
+</div>
+</div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: astroquery in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (0.4.6)
 Requirement already satisfied: numpy&gt;=1.16 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astroquery) (1.21.5)
@@ -429,9 +437,69 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
 </div>
 </div>
 </div>
-<div class="cell tag_remove-input tag_thebe-init docutils container">
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.simbad</span> <span class="kn">import</span> <span class="n">Simbad</span>
+<span class="kn">from</span> <span class="nn">astroquery.vizier</span> <span class="kn">import</span> <span class="n">Vizier</span>
+<span class="kn">from</span> <span class="nn">astroquery.ipac.ned</span> <span class="kn">import</span> <span class="n">Ned</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span><span class="p">,</span> <span class="n">Galactic</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="cell tag_remove-input tag_thebe-init docutils container">
+</div>
+</div>
+<div class="cell tag_hide-cell tag_thebe-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">result_table</span> <span class="o">=</span> <span class="n">Simbad</span><span class="o">.</span><span class="n">query_object</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">result_table</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to find&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">),</span> <span class="s2">&quot;, please enter the source coordinates:&quot;</span><span class="p">)</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;ra (degrees):&quot;</span><span class="p">))</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;dec (degrees):&quot;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="n">result_table</span><span class="p">[</span><span class="s2">&quot;RA&quot;</span><span class="p">]</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="n">result_table</span><span class="p">[</span><span class="s2">&quot;DEC&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">source</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span>
+
+<span class="k">def</span> <span class="nf">read_B1</span><span class="p">():</span>
+    <span class="n">b1_law</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;B1_law.txt&quot;</span><span class="p">,</span> <span class="n">unpack</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">b1_ras</span> <span class="o">=</span> <span class="n">b1_law</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">b1_decs</span> <span class="o">=</span> <span class="n">b1_law</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span>
+
+<span class="k">def</span> <span class="nf">check_inB1_name</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">source</span><span class="p">,</span> <span class="n">ra_source</span><span class="p">,</span> <span class="n">dec_source</span> <span class="o">=</span> <span class="n">which_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span> <span class="o">=</span> <span class="n">read_B1</span><span class="p">()</span>
+    <span class="n">c_source</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra_source</span><span class="p">,</span> <span class="n">dec_source</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">hourangle</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">))</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">all_sep</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">b1_ra</span><span class="p">,</span> <span class="n">b1_dec</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">b1_ras</span><span class="p">,</span> <span class="n">b1_decs</span><span class="p">):</span>
+        <span class="n">c_b1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">b1_ra</span><span class="p">,</span> <span class="n">b1_dec</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;icrs&quot;</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;deg&quot;</span><span class="p">)</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="n">c_source</span><span class="o">.</span><span class="n">separation</span><span class="p">(</span><span class="n">c_b1</span><span class="p">)</span>
+        <span class="n">all_sep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sep</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">sep</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s2">&quot;is not in B1 law, minimal separation =&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_sep</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s2">&quot;is in B1 law&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_inB1_list</span><span class="p">(</span><span class="n">list_of_sources</span><span class="p">):</span>
+    <span class="c1">#list_of_sources = open(list_of_sources_file, &quot;r&quot;)</span>
+    
+    <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">list_of_sources</span><span class="p">:</span>
+        <span class="n">check_inB1_name</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <section id="using-the-source-name">
 <h2>Using the source name<a class="headerlink" href="#using-the-source-name" title="Permalink to this heading">#</a></h2>
