@@ -10,6 +10,7 @@ get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/EC
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 get_ipython().system('pip install astropy')
 get_ipython().system('pip install jupyter_bokeh')
+get_ipython().system('jupyter labextension install @bokeh/jupyter_bokeh')
 
 
 # In[2]:
