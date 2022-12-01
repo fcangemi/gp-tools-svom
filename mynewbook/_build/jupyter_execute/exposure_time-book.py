@@ -6,9 +6,12 @@
 # In[1]:
 
 
-#!wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits
-#!wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf
-#!pip install astropy
+import os
+if not os.path.isfile("ECL-RSP-ARF_20211023T01.fits"):
+    os.system("wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits")
+if not os.path.isfile("MXT_FM_PANTER_FULL-ALL-1.0.arf"):
+    os.system("wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf")
+get_ipython().system('pip install astropy')
 
 
 # In[2]:
@@ -309,13 +312,14 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[8]:
+# In[9]:
 
 
 model = "bbody"
-norm = 1.
-n_H = 0.
-kT = 0.5
+norm  = 1.       # normalization
+kT    = 0.5      # Black body temperature in keV
+n_H   = 0.       # Density column in 1e21 cm-2
+
 calculate_exposure(SNR = 7, instrument = "MXT", Eband = [0.2, 10])
 
 

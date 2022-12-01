@@ -6,10 +6,12 @@
 # With this notebook, you can check whether a source is in B1 law or not.
 # The code uses the source name to search its coordinates in the SIMBAD catalog. If the source is not found, the user can enter the coordinates manually.
 
-# In[12]:
+# In[3]:
 
 
-get_ipython().system('wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt')
+import os
+if not os.path.isfile("B1_law.txt"):
+    os.system("wget https://raw.githubusercontent.com/fcangemi/gp-tools-svom/main/B1_law.txt")
 get_ipython().system('pip install astroquery')
 
 
