@@ -3,26 +3,28 @@
 
 # # Estimate exposure time
 
-# In[ ]:
+# In[31]:
 
 
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 get_ipython().system('pip install astropy')
-get_ipython().system('pip install jupyter_bokeh')
 
 
-# In[ ]:
+# In[40]:
 
 
 from astropy.io import fits
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
-from bokeh.plotting import figure, show, output_notebook
-output_notebook()
+import pandas as pd
+
+import plotly.io as pio
+import plotly.express as px
+import plotly.offline as py
 
 
-# In[ ]:
+# In[48]:
 
 
 def read_arf(arf_filename):
@@ -118,11 +120,17 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
                 else:
                     F[i] = norm * E_r[i]**(-beta) * E_break**(beta - alpha) * np.exp(- n_H * a / E_r[i]**3)
                     countrate += arf_r[i] * norm * E_r[i]**(-beta) * E_break**(beta - alpha) * dE_r[i] * np.exp(- n_H * a / E_r[i]**3)
+        d = {"Energy [keV]": E_r, "Flux ph/cm2/s/keV": F}
+        df = pd.DataFrame(data = d)
+        fig = px.scatter(df)
+        fig.show()
+        #source = pd.DataFrame({"x": E_r, "f(x)": F})
+        #alt.Chart(source).mark_line().encode(x = "x", y = "f(x)")
         #p = figure()
-        p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
-                   x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
-        p.line(E_r, F, color = "red")#, linewidth = 2, label = "Source")
-        show(p)
+        #p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
+        #           x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
+        #p.line(E_r, F, color = "red")#, linewidth = 2, label = "Source")
+        #show(p)
         #plt.xscale("log")
         #plt.yscale("log")
         #plt.xlabel("Energy [keV]")
@@ -249,7 +257,7 @@ def calculate_exposure(SNR, instrument, Eband):
 
 # Model and parameters:
 
-# In[ ]:
+# In[49]:
 
 
 
@@ -261,7 +269,7 @@ n_H   = 4.5        # Density column in 1e21 cm-2
 
 # Exposure time:
 
-# In[ ]:
+# In[50]:
 
 
 calculate_exposure(SNR = 10, instrument = "MXT", Eband = [0.2, 10])
@@ -269,7 +277,7 @@ calculate_exposure(SNR = 10, instrument = "MXT", Eband = [0.2, 10])
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[ ]:
+# In[15]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -279,7 +287,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[ ]:
+# In[16]:
 
 
 model   = "bknpowerlaw"
@@ -293,7 +301,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[ ]:
+# In[17]:
 
 
 model = "cutoffpl"
@@ -306,7 +314,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[ ]:
+# In[18]:
 
 
 model = "bbody"
