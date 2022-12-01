@@ -9,15 +9,15 @@
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
 get_ipython().system('pip install astropy')
-get_ipython().system('pip install jupyter_bokeh')
-get_ipython().system('jupyter labextension install @bokeh/jupyter_bokeh')
+#!pip install jupyter_bokeh
+#!jupyter labextension install @bokeh/jupyter_bokeh
 
 
 # In[2]:
 
 
 from astropy.io import fits
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
@@ -29,8 +29,8 @@ import pandas as pd
 # In[3]:
 
 
-from bokeh.plotting import figure, show, output_notebook
-output_notebook()
+#from bokeh.plotting import figure, show, output_notebook
+#output_notebook()
 
 
 # In[4]:
@@ -133,15 +133,17 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
         #df = pd.DataFrame(data = d)
         #fig = px.line(df, x = "Energy [keV]", y = "Flux ph/cm2/s/keV", log_x = True, log_y = True)
         #fig.show()
-        p = figure()
-        p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
-                   x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
-        p.line(E_r, F, color = "red", line_width = 3)#, label = "Source")
-        show(p)
-        #plt.xscale("log")
-        #plt.yscale("log")
-        #plt.xlabel("Energy [keV]")
-        #plt.ylabel("ph/cm2/s/keV")
+        #p = figure()
+        #p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
+        #           x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
+        #p.line(E_r, F, color = "red", line_width = 3)#, label = "Source")
+        #show(p)
+        fig = plt.figure(figsize = (7, 5))
+        plt.plot(E_r, F, label = "Source", color = "red", linewidth = 3)
+        plt.xscale("log")
+        plt.yscale("log")
+        plt.xlabel("Energy [keV]")
+        plt.ylabel("ph/cm2/s/keV")
         return countrate
 
 def calculate_background(instrument, Eband):
@@ -175,8 +177,9 @@ def calculate_background(instrument, Eband):
             F = norm * E_r**(-Gamma)
             countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)
         
-        #plt.plot(E_r, F, color = "blue", label = "CXB")
-        #plt.legend()
+        plt.plot(E_r, F, color = "blue", label = "CXB")
+        plt.legend()
+        plt.show()
     return countrate
 
 def calculate_exposure(SNR, instrument, Eband):
