@@ -3,7 +3,7 @@
 
 # # Estimate exposure time
 
-# In[21]:
+# In[5]:
 
 
 get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
@@ -13,7 +13,7 @@ get_ipython().system('pip install astropy')
 #!jupyter labextension install @bokeh/jupyter_bokeh
 
 
-# In[34]:
+# In[6]:
 
 
 from astropy.io import fits
@@ -26,14 +26,14 @@ import pandas as pd
 #import plotly.offline as py
 
 
-# In[35]:
+# In[7]:
 
 
 #from bokeh.plotting import figure, show, output_notebook
 #output_notebook()
 
 
-# In[39]:
+# In[14]:
 
 
 def read_arf(arf_filename):
@@ -115,7 +115,7 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
             countrate = sum(arf_r * norm * E_r**(-Gamma) * np.exp(-E_r / E_cut) * np.exp(- n_H * a / E_r**3) * dE_r)
         
         elif(model == "bbody"):
-            F = norm * 8.0525 * E_r**2 / (kT**4 * (np.exp(E_r/kT) - 1))# * np.exp(- n_H * a / E_r**3)
+            F = norm * 8.0525 * E_r**2 / (kT**4 * (np.exp(E_r/kT) - 1)) * np.exp(- n_H * a / E_r**3)
             countrate = sum(arf_r * norm * 8.0525 * E_r**3 / (kT**4 * (np.exp(E_r/kT) - 1)) * np.exp(- n_H * a / E_r**3) * dE_r)
             
         else: # Brokenpowerlaw
@@ -193,6 +193,8 @@ def calculate_exposure(SNR, instrument, Eband):
         print("alpha = ", alpha)
         print("beta  = ", beta)
         print("E_break = ", E_break, "keV")
+    elif(model == "bbody"):
+        print("kT = ", kT, "keV")
     else:
         print("Gamma = ", Gamma)
         print("E_cut = ", E_cut)
@@ -220,7 +222,7 @@ def calculate_exposure(SNR, instrument, Eband):
 # $$
 # N(E) = \phi_0 E^{-\Gamma}
 # $$
-# - $\phi_0$: flux normalization in **ph/cm2/s/keV**, named "**norm**" in this notebook;
+# - $\phi_0$: flux normalization at 1 keV in **ph/cm2/s/keV**, named "**norm**" in this notebook;
 # - $\Gamma$: photon index, named "**Gamma**" in this notebook.
 # 
 # **NB**: for this model, you can alternatively calculate the flux normalization $\phi_0$ by calling **calculate_norm_from_flux(unabsorbed_flux, Gamma, Emin, Emax)** and giving the ***unabsorbed flux*** in **ergs/cm2/s** between **Emin keV** and **Emax keV**.
@@ -234,7 +236,7 @@ def calculate_exposure(SNR, instrument, Eband):
 #     \end{array}
 # \right.
 # $$
-# - $\phi_0$: flux normalization in **ph/cm2/s/keV**, named "**norm**" in this notebook;
+# - $\phi_0$: flux normalization at 1 keV in **ph/cm2/s/keV**, named "**norm**" in this notebook;
 # - $E_\mathrm{break}$: break energy in **keV**, named "**E_break**" in this notebook;
 # - $\alpha$: photon index of the low energy powerlaw, named "**alpha**" in this notebook;
 # - $\beta$: photon index of the high energy powerlaw, named "**beta**" in this notebook.
@@ -243,12 +245,17 @@ def calculate_exposure(SNR, instrument, Eband):
 # $$
 # N(E) = \phi_0 E^{-\Gamma} e^\frac{E}{E_\mathrm{cut}} 
 # $$
-# - $\phi_0$: flux normalization in **ph/cm2/s/keV**, named "**norm**" in this notebook;
+# - $\phi_0$: flux normalization at 1 keV in **ph/cm2/s/keV**, named "**norm**" in this notebook;
 # - $\Gamma$: photon index, named "**Gamma**" in this notebook;
 # - $E_\mathrm{cut}$: cutoff energy in **keV**, "**E_cut**" in this notebook.
 # 
 # ##### Black body, "**bbody**":
-# Description of the black body model in construction.
+# $$
+# N(E) = \frac{\phi_0 \times 8.0525 E^2}{(kT^4)[e^{\frac{E}{kT}} - 1]}
+# $$
+# 
+# - $\phi_0$: flux normalization: $\phi_0 = L_{39}/D_{10}^2$, where $L_{39}$ is the source luminosity in unit of $10^{39}$ erg/s and $D_{10}$ is the distance to the source in units of 10 kpc. (See https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node137.html);
+# - $kT$: temperature in **keV**, name "**kT**" in this notebook;
 # 
 # For all the models, absorption is taken into account thanks to the hydrogen density column parameter **n_H**, in **$10^{21}$cm$^{-2}$**.
 # 
@@ -261,34 +268,25 @@ def calculate_exposure(SNR, instrument, Eband):
 
 # To edit the cells, `click on the rocket` at the top of this page, and then `click on the "Live Code"` button. Once your cell is edited you can click on "run"
 
-# 
-
 # ### Few examples
 # #### Powerlaw (example for the Crab)
 
-# Model and parameters:
-
-# In[40]:
+# In[20]:
 
 
-
+# Model and parameters
 model = "powerlaw"
 norm  = 10         # Flux normalisation in ph/cm2/s/keV
 Gamma = 2.1        # Photon index
 n_H   = 4.5        # Density column in 1e21 cm-2
 
-
 # Exposure time:
-
-# In[41]:
-
-
 calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
 
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[42]:
+# In[21]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -298,7 +296,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[43]:
+# In[22]:
 
 
 model   = "bknpowerlaw"
@@ -312,7 +310,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[44]:
+# In[23]:
 
 
 model = "cutoffpl"
@@ -325,7 +323,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[45]:
+# In[24]:
 
 
 model = "bbody"
