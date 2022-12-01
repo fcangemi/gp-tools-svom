@@ -3,37 +3,23 @@
 
 # # Estimate exposure time
 
-# In[5]:
+# In[1]:
 
 
-get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits')
-get_ipython().system('wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf')
-get_ipython().system('pip install astropy')
-#!pip install jupyter_bokeh
-#!jupyter labextension install @bokeh/jupyter_bokeh
+#!wget https://github.com/fcangemi/gp-tools-svom/raw/main/ECL-RSP-ARF_20211023T01.fits
+#!wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf
+#!pip install astropy
 
 
-# In[6]:
+# In[2]:
 
 
 from astropy.io import fits
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-
-#import plotly.io as pio
-#import plotly.express as px
-#import plotly.offline as py
 
 
-# In[7]:
-
-
-#from bokeh.plotting import figure, show, output_notebook
-#output_notebook()
-
-
-# In[14]:
+# In[3]:
 
 
 def read_arf(arf_filename):
@@ -194,7 +180,7 @@ def calculate_exposure(SNR, instrument, Eband):
         print("beta  = ", beta)
         print("E_break = ", E_break, "keV")
     elif(model == "bbody"):
-        print("kT = ", kT, "keV")
+        print("kT    = ", kT, "keV")
     else:
         print("Gamma = ", Gamma)
         print("E_cut = ", E_cut)
@@ -266,12 +252,12 @@ def calculate_exposure(SNR, instrument, Eband):
 # - "**Eband**": energy band for which you want to calculate the exposure time, [**Emin**, **Emax**], **Emin** and **Emax** in **keV**.
 # 
 
-# To edit the cells, `click on the rocket` at the top of this page, and then `click on the "Live Code"` button. Once your cell is edited you can click on "run"
+# To edit the cells, `click on the rocket` at the top of this page, and then `click on the "Live Code"` button. Once your cell is edited you can `click on "run"`or `"restart & run all"`.
 
 # ### Few examples
 # #### Powerlaw (example for the Crab)
 
-# In[20]:
+# In[4]:
 
 
 # Model and parameters
@@ -280,13 +266,13 @@ norm  = 10         # Flux normalisation in ph/cm2/s/keV
 Gamma = 2.1        # Photon index
 n_H   = 4.5        # Density column in 1e21 cm-2
 
-# Exposure time:
+# Exposure time
 calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 150])
 
 
 # Alternatively, you can give the unabsorbed flux to calculate the flux normalization:
 
-# In[21]:
+# In[5]:
 
 
 unabsorbed_flux = 2.24e-8   # Unabsorbed flux in ergs/cm2/s between 2-10 keV
@@ -296,7 +282,7 @@ calculate_exposure(SNR = 5, instrument = "MXT", Eband = [0.2, 10])
 
 # #### Broken Powerlaw
 
-# In[22]:
+# In[6]:
 
 
 model   = "bknpowerlaw"
@@ -310,7 +296,7 @@ calculate_exposure(SNR = 30, instrument = "ECLAIRs", Eband = [4, 150])
 
 # #### Cutoff Powerlaw
 
-# In[23]:
+# In[7]:
 
 
 model = "cutoffpl"
@@ -323,7 +309,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[24]:
+# In[8]:
 
 
 model = "bbody"
