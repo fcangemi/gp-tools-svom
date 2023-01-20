@@ -20,6 +20,8 @@ get_ipython().system('pip install astropy')
 from astropy.io import fits
 import matplotlib.pyplot as plt
 import numpy as np
+from lmfit.models import ExpressionModel
+from lmfit import minimize, Minimizer, Parameters, Parameter, report_fit
 
 
 # In[3]:
@@ -37,6 +39,21 @@ def read_arf(arf_filename):
     E = emin + (emax - emin) / 2
 
     return E, emin, emax, dE, arf
+
+def bbody(x, phi0, kT):
+    return phi0 * 8.0525 * x**2 / (kT**4 * (np.exp(x/kT) - 1))
+
+def powerlaw(x, norm, Gamma):
+    return norm * x**(-Gamma)
+
+def cutoffpl(x, norm, Gamma, E_cut):
+    return norm * x**(-Gamma) * np.exp(-x / E_cut)
+
+#def powerlaw(params, x, data, error):
+#    norm = params['norm']
+#    Gamma = params['Gamma']
+#    model = norm * x**(-Gamma)
+#    return (model - data) / error
 
 def function(x, a):
     return np.exp(- a * 1.5 / x ** 3)
@@ -78,7 +95,10 @@ def plot_EF(ax, E, EF):
 def calculate_norm_from_flux(flux, Gamma, Emin, Emax):
     return flux * (-Gamma + 2) / (Emax**(-Gamma + 2) - Emin**(-Gamma + 2)) * 6.242e8
 
-def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
+def calculate_flux_from_norm(norm, Gamma, Emin, Emax): 
+    return norm / (-Gamma + 2) * (Emax**(-Gamma + 2) - Emin**(-Gamma + 2)) / 6.242e8
+
+def calculate_countrate(n_H, Eband, instrument, model, plot = 1):
     if(instrument == "MXT"):
         E, emin, emax, dE, arf = read_arf("MXT_FM_PANTER_FULL-ALL-1.0.arf")
     else:
@@ -97,6 +117,7 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
         
         if(model == "powerlaw"):
             F = norm * E_r**(-Gamma) * np.exp(- n_H * a / E_r**3)
+            #print("Absorbed flux = ", sum(norm * E_r**(-Gamma) * np.exp(- n_H * a / E_r**3) * dE_r) / 6.242e8, "erg/s/cm2")
             countrate = sum(arf_r * norm * E_r**(-Gamma) * np.exp(- n_H * a / E_r**3) * dE_r)
             
         elif(model == "cutoffpl"):
@@ -105,7 +126,7 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
         
         elif(model == "bbody"):
             F = norm * 8.0525 * E_r**2 / (kT**4 * (np.exp(E_r/kT) - 1)) * np.exp(- n_H * a / E_r**3)
-            countrate = sum(arf_r * norm * 8.0525 * E_r**3 / (kT**4 * (np.exp(E_r/kT) - 1)) * np.exp(- n_H * a / E_r**3) * dE_r)
+            countrate = sum(arf_r * norm * 8.0525 * E_r**2 / (kT**4 * (np.exp(E_r/kT) - 1)) * np.exp(- n_H * a / E_r**3) * dE_r)
             
         else: # Brokenpowerlaw
             F = np.ones(len(E_r))
@@ -118,24 +139,18 @@ def calculate_countrate(norm, Gamma, n_H, Eband, instrument, model):
                 else:
                     F[i] = norm * E_r[i]**(-beta) * E_break**(beta - alpha) * np.exp(- n_H * a / E_r[i]**3)
                     countrate += arf_r[i] * norm * E_r[i]**(-beta) * E_break**(beta - alpha) * dE_r[i] * np.exp(- n_H * a / E_r[i]**3)
-        #d = {"Energy [keV]": E_r, "Flux ph/cm2/s/keV": F}
-        #df = pd.DataFrame(data = d)
-        #fig = px.line(df, x = "Energy [keV]", y = "Flux ph/cm2/s/keV", log_x = True, log_y = True)
-        #fig.show()
-        #p = figure()
-        #p = figure(plot_width = 500, plot_height = 300, y_axis_type = "log",
-        #           x_axis_type = "log", y_axis_label = "ph/cm2/s/keV", x_axis_label = "Energy [keV]")
-        #p.line(E_r, F, color = "red", line_width = 3)#, label = "Source")
-        #show(p)
-        fig = plt.figure(figsize = (7, 5))
-        plt.plot(E_r, F, label = "Source", color = "red", linewidth = 3)
-        plt.xscale("log")
-        plt.yscale("log")
-        plt.xlabel("Energy [keV]")
-        plt.ylabel("ph/cm2/s/keV")
-        return countrate
+        if (plot == 1):
+            fig = plt.figure(figsize = (7, 5))
+            plt.plot(E_r, F, label = "Source", color = "red", linewidth = 3)
+            plt.xscale("log")
+            plt.yscale("log")
+            plt.xlabel("Energy [keV]")
+            plt.ylabel("ph/cm2/s/keV")
+            #plt.ylim([0.01, 2])
+        flux_simu = countrate / sum(arf_r * dE_r)
+        return countrate, flux_simu
 
-def calculate_background(instrument, Eband):
+def calculate_background(instrument, Eband, plot = 1):
     if(instrument == "ECLAIRs"):
         E, emin, emax, dE, arf = read_arf("ECL-RSP-ARF_20211023T01.fits")
     else:
@@ -166,9 +181,10 @@ def calculate_background(instrument, Eband):
             F = norm * E_r**(-Gamma)
             countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)
         
-        plt.plot(E_r, F, color = "blue", label = "CXB")
-        plt.legend()
-        plt.show()
+        if(plot == 1):
+            plt.plot(E_r, F, color = "blue", label = "CXB")
+            plt.legend()
+            plt.show()
     return countrate
 
 def calculate_exposure(SNR, instrument, Eband):
@@ -189,7 +205,7 @@ def calculate_exposure(SNR, instrument, Eband):
         print("E_cut = ", E_cut)
     print("n_H   = ", n_H, "e21 cm-2")
     
-    source = calculate_countrate(norm, Gamma, n_H, Eband, instrument, model)
+    source, flux_simu = calculate_countrate(n_H, Eband, instrument, model)
     if(instrument == "MXT"):
         
         background = calculate_background("MXT", Eband)
@@ -201,6 +217,157 @@ def calculate_exposure(SNR, instrument, Eband):
     print("Background =", f'{background:.4f}', "c/s in the energy band", Eband, "keV.")
     print("Source =", f'{source:.4f}', "c/s in the energy band", Eband, "keV.")
     print(instrument, ": need an exposure time of", f'{exposure:.2f}', "seconds for a SNR =", SNR, "over the energy band", Eband, "keV.")
+
+    
+def make_spectra(instrument, nbins, tps_expo, title = " ", path_to_fig = " ", ylim1 = " ", ylim2 = " ", color = "black"):
+    if(instrument == "ECLAIRs"):
+        E = np.logspace(0.4, 2.15, nbins + 1)
+    else:
+        E = np.logspace(-1, 1, nbins + 1)
+    
+    print("norm  = ", f'{norm:.4f}', "ph/s/cm2/keV")
+    
+    if(model == "powerlaw"):
+        print("Gamma = ", Gamma)
+    elif(model == "bknpowerlaw"):
+        print("alpha = ", alpha)
+        print("beta  = ", beta)
+        print("E_break = ", E_break, "keV")
+    elif(model == "bbody"):
+        print("kT    = ", kT, "keV")
+    else:
+        print("Gamma = ", Gamma)
+        print("E_cut = ", E_cut)
+    print("n_H   = ", n_H, "e21 cm-2")
+    
+    Emin = E[0:-1]
+    Emax = E[1:]
+    Ebin = Emax - Emin
+    SNR = []
+    countrate = []
+    energy = Emin + (Emax - Emin) / 2
+    flux_simu = []
+    background = []
+    error = []
+
+    for emin, emax in zip(Emin, Emax):
+
+        src, f_simu = calculate_countrate(n_H, [emin, emax], instrument, model, plot = 0)
+        bkg = calculate_background(instrument, [emin, emax], plot = 0)
+        err = np.sqrt(src * tps_expo) 
+        if(instrument == "ECLAIRs"):
+            snr = src / np.sqrt(src / 0.4 + bkg) * np.sqrt(tps_expo) # for ECLAIRs
+        else:
+            snr = src / np.sqrt(src + bkg) * np.sqrt(tps_expo) # for MXT
+        SNR.append(snr)
+        countrate.append(src)
+        flux_simu.append(f_simu)
+        background.append(bkg)
+        error.append(err)
+    
+    # PLOTS
+    fig, ax = plt.subplots(figsize = (11, 5), nrows = 1, ncols = 2) 
+    fig.suptitle(instrument + "," + title + ", $t_{expo} =$" + str(tps_expo) + " s, \n" + model)
+    yerr = np.asarray(error) / tps_expo
+    #ax[0].errorbar(energy, countrate, xerr = Ebin / 2, yerr = yerr, color = "black")
+    #ax[0].set_xscale("log")
+    #ax[0].set_yscale("log")
+    #ax[0].set_xlabel("Energy [keV]")
+    #ax[0].set_ylabel("counts/s/keV")
+    #if(ylim1 != " "):
+    #    ax[0].set_ylim(ylim1)
+    ax[0].plot(energy, SNR, 'o-', color = color)
+    ax[0].set_xscale("log")
+    #ax[0].set_yscale("log")
+    ax[0].set_xlabel("Energy [keV]")
+    ax[0].set_ylabel("SNR")
+    
+    a = 0.286733
+    #flux_simu_err = yerr / countrate * flux_simu
+    flux_simu_err = flux_simu / np.asarray(SNR)
+    ax[1].errorbar(energy, flux_simu, # * np.exp(- n_H * a / energy**3), 
+                   xerr = Ebin / 2, yerr = flux_simu_err, fmt = ".",
+                   label = "simulated spectrum", color = "black")
+    
+    idx = np.where(np.isnan(flux_simu_err) == False)[0]
+    energy_g = energy[idx]
+    flux_simu_g = np.asarray(flux_simu)[idx]
+    flux_simu_err_g = flux_simu_err[idx]
+    if(model == "powerlaw"):
+        gmod = ExpressionModel("norm * x**(-Gamma) * exp(- n_H * 0.286733 / x**3)")
+        params = gmod.make_params(norm = 1, Gamma = 2, n_H = 20.)
+        params["n_H"].set(min = 0.1)
+        params["n_H"].set(max = 120.) 
+        result = gmod.fit(flux_simu_g, params, x = energy_g, weights = 1. / flux_simu_err_g, scale_covar=False)
+        ax[1].plot(energy, powerlaw(energy, result.params["norm"], result.params["Gamma"]) * np.exp(- result.params["n_H"] * 0.286733 / energy**3),
+                  color = "red", linewidth = 3, label = "Best fit")
+        
+    elif(model == "cutoffpl"):
+        gmod = ExpressionModel("norm * x**(-Gamma) * exp(-x / E_cut) * exp(- n_H * 0.286733 / x**3)")
+        params = gmod.make_params(norm = 1., Gamma = 1.7, E_cut = 70., n_H = 20.)
+        params["E_cut"].set(min = 1.)
+        params["E_cut"].set(max = 500.)
+        params["n_H"].set(min = 0.1)
+        params["n_H"].set(max = 120.) 
+        result = gmod.fit(flux_simu_g, params, x = energy_g, weights = 1. / flux_simu_err_g, scale_covar=False, max_nfev = 10000)
+        ax[1].plot(energy, cutoffpl(energy, result.params["norm"], result.params["Gamma"], result.params["E_cut"]) * np.exp(- result.params["n_H"] * 0.286733 / energy**3),
+                  color = "red", linewidth = 3, label = "Best fit")
+    
+    elif(model == "bbody"):
+        gmod = ExpressionModel("norm * 8.0525 * x**2 / (kT**4 * (exp(x/kT) - 1)) * exp(- n_H * 0.286733 / x**3)")
+        params = gmod.make_params(norm = 1., kT = 1, n_H = 20.)
+        params["norm"].set(min = 0.001)
+        params["norm"].set(max = 10)
+        params["kT"].set(min = 0.01)
+        params["kT"].set(max = 3.)
+        params["n_H"].set(min = 0.1)
+        params["n_H"].set(max = 120.) 
+        result = gmod.fit(flux_simu_g, params, x = energy_g, weights = 1. / flux_simu_err_g, scale_covar=False, max_nfev = 10000)
+        ax[1].plot(energy, bbody(energy, result.params["norm"], result.params["kT"]) * np.exp(- result.params["n_H"] * 0.286733 / energy**3),
+                  color = "red", linewidth = 3, label = "Best fit")
+    print(result.fit_report())
+     
+    ax[1].set_xscale("log")
+    ax[1].set_yscale("log")
+    ax[1].set_ylabel("ph/s/cm2/keV")
+    ax[1].set_xlabel("Energy [keV]")
+    ax[1].legend()
+    #plt.title(instrument + "," + title + ", $t_{expo} =$" + str(tps_expo) + " s")
+    if(ylim2 != " "):
+        ax[1].set_ylim(ylim2)
+    
+    if(model == "powerlaw"):
+        ax[1].set_title("norm   = " + str(result.params["norm"].value)[0:5] + " +/- " + 
+                        str(result.params["norm"].stderr)[0:5] + "\n"
+                        "Gamma = " + str(result.params["Gamma"].value)[0:5] + " +/- " + 
+                        str(result.params["Gamma"].stderr)[0:5] +  "\n"
+                        "n_H    = " + str(result.params["n_H"].value)[0:5] + " +/- " + 
+                        str(result.params["n_H"].stderr)[0:5] + "$\\times 10^{21}$ cm-2",
+                        fontsize = 8)
+        
+    elif(model == "cutoffpl"):
+        ax[1].set_title("norm   = " + str(result.params["norm"].value)[0:5] + " +/- " + 
+                        str(result.params["norm"].stderr)[0:5] + "\n"
+                        "Gamma = " + str(result.params["Gamma"].value)[0:5] + " +/- " + 
+                        str(result.params["Gamma"].stderr)[0:5] +  "\n"
+                        "E_cut = " + str(result.params["E_cut"].value)[0:5] + " +/- " + 
+                        str(result.params["E_cut"].stderr)[0:5] +  " keV \n"
+                        "n_H    = " + str(result.params["n_H"].value)[0:5] + " +/- " + 
+                        str(result.params["n_H"].stderr)[0:5] + "$\\times 10^{21}$ cm-2",
+                        fontsize = 8)
+        
+    elif(model == "bbody"):
+        ax[1].set_title("norm   = " + str(result.params["norm"].value)[0:5] + " +/- " + 
+                        str(result.params["norm"].stderr)[0:5] + "\n"
+                        "kT = " + str(result.params["kT"].value)[0:5] + " +/- " + 
+                        str(result.params["kT"].stderr)[0:5] +  " keV\n"
+                        "n_H    = " + str(result.params["n_H"].value)[0:5] + " +/- " + 
+                        str(result.params["n_H"].stderr)[0:5] + "$\\times 10^{21}$ cm-2",
+                        fontsize = 8)
+    
+    
+    if(path_to_fig != " "):
+        fig.savefig(path_to_fig + title + "_" + instrument + "_" + str(tps_expo) + "s_" + str(nbins) + "bins.pdf", bbox_inches = "tight")
 
 
 # This notebook uses ancillary response files of MXT and ECLAIRs in order to calculate the exposure time needed to achieve a signal to noise ratio given the spectrum of a source.
@@ -323,26 +490,48 @@ n_H   = 0.       # Density column in 1e21 cm-2
 calculate_exposure(SNR = 7, instrument = "MXT", Eband = [0.2, 10])
 
 
-# In[ ]:
+# # Simulate your spectra
 
-
-
-
+# First define your model parameters (works for powerlaw, cutoffpl, bbody):
 
 # In[ ]:
 
 
+model = "cutoffpl"
+norm  = 10           # Flux normalisation in ph/cm2/s/keV
+E_cut = 40          # Energy cutoff in keV
+Gamma = 2.1         # Photon index
+n_H   = 2           # Density column in 1e21 cm-2
 
 
+# Then define the parameters to compute the spectrum :
+# - **instrument**: the instrument "MXT" or "ELCAIRs"
+# - **nbins**: the number of energy bins you want for computing your spectrum
+# - **tps_expo**: the exposure time (in seconds)
+# 
+# You can also define optionnal parameters:
+# - **title**: a title for your figure (in string)
+# - **path_to_fig**: the path where you want to save your figure (in string)
+# - **ylim1**: limits for your y axis for the SNR VS Energy plot (for instance [1, 100])
+# - **ylim2**: limits for your y axis for the spectrum (for instance [1e-6, 1])
+# - **color**: the color you want to plot the SNR
+# 
+# Then you can run the simulation by calling the "**make_spectra()**" function.
 
 # In[ ]:
 
 
+instrument = "MXT"
+nbins = 32
+tps_expo = 3000
 
+# Optionnal parameters
+title = "Example"
+path_to_fig = " "
+ylim1 = " "
+ylim2 = [1e-6, 10]
+color = "blue"
 
-
-# In[ ]:
-
-
-
+# Run make_spectra
+make_spectra(instrument, nbins, tps_expo, title, path_to_fig, ylim1, ylim2, color) 
 
