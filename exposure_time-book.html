@@ -563,6 +563,17 @@ title="Print to PDF"
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;MXT_FM_PANTER_FULL-ALL-1.0.arf&quot;</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf&quot;</span><span class="p">)</span>
 <span class="o">!</span>pip install astropy
+<span class="o">!</span>pip install lmfit
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: astropy in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (5.1)
+Requirement already satisfied: pyerfa&gt;=2.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (2.0.0)
+Requirement already satisfied: PyYAML&gt;=3.13 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (6.0)
+Requirement already satisfied: numpy&gt;=1.18 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (1.21.5)
+Requirement already satisfied: packaging&gt;=19.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (21.3)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from packaging&gt;=19.0-&gt;astropy) (3.0.9)
 </pre></div>
 </div>
 </div>
@@ -1140,8 +1151,8 @@ n_H   =  0.0 e21 cm-2
 </div>
 <img alt="_images/exposure_time-book_15_1.png" src="_images/exposure_time-book_15_1.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Background = 0.2285 c/s in the energy band [0.2, 10] keV.
-Source = 1130.8116 c/s in the energy band [0.2, 10] keV.
-MXT : need an exposure time of 0.04 seconds for a SNR = 7 over the energy band [0.2, 10] keV.
+Source = 957.6226 c/s in the energy band [0.2, 10] keV.
+MXT : need an exposure time of 0.05 seconds for a SNR = 7 over the energy band [0.2, 10] keV.
 </pre></div>
 </div>
 </div>
@@ -1195,6 +1206,42 @@ MXT : need an exposure time of 0.04 seconds for a SNR = 7 over the energy band [
 <span class="n">make_spectra</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">tps_expo</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">path_to_fig</span><span class="p">,</span> <span class="n">ylim1</span><span class="p">,</span> <span class="n">ylim2</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> 
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>norm  =  10.0000 ph/s/cm2/keV
+Gamma =  2.1
+E_cut =  40
+n_H   =  2 e21 cm-2
+[[Model]]
+    Model(_eval)
+[[Fit Statistics]]
+    # fitting method   = leastsq
+    # function evals   = 59
+    # data points      = 28
+    # variables        = 4
+    chi-square         = 32.6313449
+    reduced chi-square = 1.35963937
+    Akaike info crit   = 12.2859269
+    Bayesian info crit = 17.6147449
+    R-squared          = 0.65562254
+[[Variables]]
+    norm:   9.97385092 +/- 0.03783307 (0.38%) (init = 1)
+    Gamma:  2.03104073 +/- 0.01288183 (0.63%) (init = 1.7)
+    E_cut:  22.8601298 +/- 2.57029603 (11.24%) (init = 70)
+    n_H:    1.94697885 +/- 0.00821246 (0.42%) (init = 20)
+[[Correlations]] (unreported correlations are &lt; 0.100)
+    C(Gamma, E_cut) = 0.944
+    C(Gamma, n_H)   = 0.831
+    C(norm, E_cut)  = -0.695
+    C(E_cut, n_H)   = 0.694
+    C(norm, Gamma)  = -0.470
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_3135/790080779.py:232: RuntimeWarning: invalid value encountered in sqrt
+  snr = src / np.sqrt(src + bkg) * np.sqrt(tps_expo) # for MXT
+</pre></div>
+</div>
+<img alt="_images/exposure_time-book_20_2.png" src="_images/exposure_time-book_20_2.png" />
 </div>
 </div>
 </section>
