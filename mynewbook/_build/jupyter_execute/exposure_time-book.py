@@ -12,6 +12,7 @@ if not os.path.isfile("ECL-RSP-ARF_20211023T01.fits"):
 if not os.path.isfile("MXT_FM_PANTER_FULL-ALL-1.0.arf"):
     os.system("wget https://github.com/fcangemi/gp-tools-svom/raw/main/MXT_FM_PANTER_FULL-ALL-1.0.arf")
 get_ipython().system('pip install astropy')
+get_ipython().system('pip install lmfit')
 
 
 # In[2]:
@@ -479,7 +480,7 @@ calculate_exposure(SNR = 10, instrument = "ECLAIRs", Eband = [4, 100])
 
 # #### Black Body
 
-# In[9]:
+# In[8]:
 
 
 model = "bbody"
@@ -494,7 +495,7 @@ calculate_exposure(SNR = 7, instrument = "MXT", Eband = [0.2, 10])
 
 # First define your model parameters (works for powerlaw, cutoffpl, bbody):
 
-# In[ ]:
+# In[9]:
 
 
 model = "cutoffpl"
@@ -518,7 +519,7 @@ n_H   = 2           # Density column in 1e21 cm-2
 # 
 # Then you can run the simulation by calling the "**make_spectra()**" function.
 
-# In[ ]:
+# In[10]:
 
 
 instrument = "MXT"
@@ -534,4 +535,10 @@ color = "blue"
 
 # Run make_spectra
 make_spectra(instrument, nbins, tps_expo, title, path_to_fig, ylim1, ylim2, color) 
+
+
+# In[ ]:
+
+
+
 
