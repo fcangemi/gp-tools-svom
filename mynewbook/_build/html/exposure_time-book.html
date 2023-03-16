@@ -569,11 +569,17 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: astropy in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (5.1)
-Requirement already satisfied: pyerfa&gt;=2.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (2.0.0)
-Requirement already satisfied: PyYAML&gt;=3.13 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (6.0)
 Requirement already satisfied: numpy&gt;=1.18 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (1.21.5)
+Requirement already satisfied: pyerfa&gt;=2.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (2.0.0)
 Requirement already satisfied: packaging&gt;=19.0 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (21.3)
+Requirement already satisfied: PyYAML&gt;=3.13 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from astropy) (6.0)
 Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from packaging&gt;=19.0-&gt;astropy) (3.0.9)
+Requirement already satisfied: lmfit in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (1.1.0)
+Requirement already satisfied: numpy&gt;=1.19 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from lmfit) (1.21.5)
+Requirement already satisfied: asteval&gt;=0.9.28 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from lmfit) (0.9.28)
+Requirement already satisfied: scipy&gt;=1.6 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from lmfit) (1.9.1)
+Requirement already satisfied: uncertainties&gt;=3.1.4 in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from lmfit) (3.1.7)
+Requirement already satisfied: future in /Users/fcangemi/opt/anaconda3/lib/python3.9/site-packages (from uncertainties&gt;=3.1.4-&gt;lmfit) (0.18.2)
 </pre></div>
 </div>
 </div>
@@ -715,6 +721,7 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
         <span class="k">return</span> <span class="n">countrate</span><span class="p">,</span> <span class="n">flux_simu</span>
 
 <span class="k">def</span> <span class="nf">calculate_background</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">Eband</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">0.286733</span>
     <span class="k">if</span><span class="p">(</span><span class="n">instrument</span> <span class="o">==</span> <span class="s2">&quot;ECLAIRs&quot;</span><span class="p">):</span>
         <span class="n">E</span><span class="p">,</span> <span class="n">emin</span><span class="p">,</span> <span class="n">emax</span><span class="p">,</span> <span class="n">dE</span><span class="p">,</span> <span class="n">arf</span> <span class="o">=</span> <span class="n">read_arf</span><span class="p">(</span><span class="s2">&quot;ECL-RSP-ARF_20211023T01.fits&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -743,7 +750,9 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/fcangemi/op
             <span class="n">norm</span> <span class="o">=</span> <span class="mf">3.67e-3</span> <span class="o">*</span> <span class="mi">65318</span> <span class="o">*</span> <span class="p">(</span><span class="mf">13.5</span><span class="o">*</span><span class="mf">0.0002777</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1">#norm in ph/cm2/s/keV/deg2 * nb pixel contributing to the PSF * (13.5 arcsec/pixel)**2</span>
             <span class="n">Gamma</span> <span class="o">=</span> <span class="mf">1.47</span>
             <span class="n">F</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span>
-            <span class="n">countrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arf_r</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">)</span>
+            <span class="c1">#countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">countrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">arf_r</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">E_r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">Gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">n_H</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">E_r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">dE_r</span><span class="p">)</span>
         
         <span class="k">if</span><span class="p">(</span><span class="n">plot</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_r</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;CXB&quot;</span><span class="p">)</span>
@@ -1056,7 +1065,7 @@ n_H   =  4.5 e21 cm-2
 </pre></div>
 </div>
 <img alt="_images/exposure_time-book_9_1.png" src="_images/exposure_time-book_9_1.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Background = 0.2285 c/s in the energy band [0.2, 10] keV.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Background = 0.0594 c/s in the energy band [0.2, 10] keV.
 Source = 131.8547 c/s in the energy band [0.2, 10] keV.
 MXT : need an exposure time of 0.19 seconds for a SNR = 5 over the energy band [0.2, 10] keV.
 </pre></div>
@@ -1216,28 +1225,28 @@ n_H   =  2 e21 cm-2
     Model(_eval)
 [[Fit Statistics]]
     # fitting method   = leastsq
-    # function evals   = 59
+    # function evals   = 70
     # data points      = 28
     # variables        = 4
-    chi-square         = 32.6313449
-    reduced chi-square = 1.35963937
-    Akaike info crit   = 12.2859269
-    Bayesian info crit = 17.6147449
-    R-squared          = 0.65562254
+    chi-square         = 32.8502047
+    reduced chi-square = 1.36875853
+    Akaike info crit   = 12.4730970
+    Bayesian info crit = 17.8019151
+    R-squared          = 0.65331278
 [[Variables]]
-    norm:   9.97385092 +/- 0.03783307 (0.38%) (init = 1)
-    Gamma:  2.03104073 +/- 0.01288183 (0.63%) (init = 1.7)
-    E_cut:  22.8601298 +/- 2.57029603 (11.24%) (init = 70)
-    n_H:    1.94697885 +/- 0.00821246 (0.42%) (init = 20)
+    norm:   9.97363429 +/- 0.03783086 (0.38%) (init = 1)
+    Gamma:  2.03044528 +/- 0.01281399 (0.63%) (init = 1.7)
+    E_cut:  22.7653706 +/- 2.54070426 (11.16%) (init = 70)
+    n_H:    1.94643304 +/- 0.00811948 (0.42%) (init = 20)
 [[Correlations]] (unreported correlations are &lt; 0.100)
     C(Gamma, E_cut) = 0.944
-    C(Gamma, n_H)   = 0.831
-    C(norm, E_cut)  = -0.695
-    C(E_cut, n_H)   = 0.694
-    C(norm, Gamma)  = -0.470
+    C(Gamma, n_H)   = 0.829
+    C(norm, E_cut)  = -0.699
+    C(E_cut, n_H)   = 0.692
+    C(norm, Gamma)  = -0.475
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_3135/790080779.py:232: RuntimeWarning: invalid value encountered in sqrt
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/cf/lj06vg8d24d6_0gnzr5lh2d40000gn/T/ipykernel_18190/136565042.py:235: RuntimeWarning: invalid value encountered in double_scalars
   snr = src / np.sqrt(src + bkg) * np.sqrt(tps_expo) # for MXT
 </pre></div>
 </div>

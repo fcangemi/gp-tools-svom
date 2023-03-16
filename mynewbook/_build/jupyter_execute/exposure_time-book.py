@@ -152,6 +152,7 @@ def calculate_countrate(n_H, Eband, instrument, model, plot = 1):
         return countrate, flux_simu
 
 def calculate_background(instrument, Eband, plot = 1):
+    a = 0.286733
     if(instrument == "ECLAIRs"):
         E, emin, emax, dE, arf = read_arf("ECL-RSP-ARF_20211023T01.fits")
     else:
@@ -180,7 +181,9 @@ def calculate_background(instrument, Eband, plot = 1):
             norm = 3.67e-3 * 65318 * (13.5*0.0002777)**2 #norm in ph/cm2/s/keV/deg2 * nb pixel contributing to the PSF * (13.5 arcsec/pixel)**2
             Gamma = 1.47
             F = norm * E_r**(-Gamma)
-            countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)
+            #countrate = sum(arf_r * norm * E_r**(-Gamma) * dE_r)
+            F = norm * E_r**(-Gamma) * np.exp(- n_H * a / E_r**3)
+            countrate = sum(arf_r * norm * E_r**(-Gamma) * np.exp(- n_H * a / E_r**3) * dE_r)
         
         if(plot == 1):
             plt.plot(E_r, F, color = "blue", label = "CXB")
@@ -535,6 +538,12 @@ color = "blue"
 
 # Run make_spectra
 make_spectra(instrument, nbins, tps_expo, title, path_to_fig, ylim1, ylim2, color) 
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
